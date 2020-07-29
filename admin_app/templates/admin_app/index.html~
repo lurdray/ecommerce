@@ -1,0 +1,149 @@
+{% extends 'admin_app/base.html' %}
+{% load staticfiles %}
+  
+
+
+{% block content %}
+
+
+<div class="ps-vendor-dashboard">
+        <div class="container">
+            <div class="ps-section__content">
+                <div class="ps-block--vendor-dashboard">
+                    <div class="ps-block__header">
+                        <h3>Recent Products</h3>
+                    </div>
+                    <div class="ps-block__content">
+                        <div class="table-responsive">
+                            <table class="table ps-table ps-table--vendor">
+                                <thead>
+                                    <tr>
+                                        <th>date</th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>
+                                        <th>Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                	{% if products %}
+                                		{% for item in products %}
+				                            <tr>
+				                                <td>{{ item.pub_date }}</td>
+				                                <td>{{ item.name }}</td>
+				                                <td>{{ item.price }}</td>
+				                                <td>{{ item.category }}</td>
+				                                <td>{{ item.quantity }}</td>
+				                                <td>{{ item.rating }}</td>
+				                            </tr>
+				                         {% endfor %}
+				                        {% else %}
+		                                <tr>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                </tr>
+		                               {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="ps-block--vendor-dashboard">
+                    <div class="ps-block__header">
+                        <h3>Recent Orders</h3>
+                    </div>
+                    <div class="ps-block__content">
+                        <div class="table-responsive">
+                            <table class="table ps-table ps-table--vendor">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Customer Name</th>
+                                        <th>Total Price</th>
+                                        <th>Quantity</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                	{% if orders %}
+                                		{% for item in orders %}
+				                            <tr>
+				                                <td>{{ item.pub_date }}</td>
+				                                <td>{{ item.customer.full_name }}</td>
+				                                <td>{{ item.cart.total_price }}</td>
+				                                <td>{{ item.cart.product_quantitys.count }}</td>
+				                                <td>{{ item.customer.address }}</td>
+				                                <td>{{ item.status }}</td>
+				                            </tr>
+				                         {% endfor %}
+				                        {% else %}
+		                                <tr>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                </tr>
+		                               {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                 <div class="ps-block--vendor-dashboard">
+                    <div class="ps-block__header">
+                        <h3>Recent Customers</h3>
+                    </div>
+                    <div class="ps-block__content">
+                        <div class="table-responsive">
+                           <table class="table ps-table ps-table--vendor">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Full Name</th>
+                                        <th>Email Address</th>
+                                        <th>Country</th>
+                                        <th>Phone Number</th>
+                                        <th>Company Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                	{% if customers %}
+                                		{% for item in customers %}
+				                            <tr>
+				                                <td>{{ item.pub_date }}</td>
+				                                <td>{{ item.full_name }}</td>
+				                                <td>{{ item.email }}</td>
+				                                <td>{{ item.country }}</td>
+				                                <td>{{ item.phone }}</td>
+				                                <td>{{ item.company_name }}</td>
+				                            </tr>
+				                         {% endfor %}
+				                        {% else %}
+		                                <tr>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                    <td>Sorry, Nothing Yet!</td>
+		                                </tr>
+		                               {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+{% endblock %}

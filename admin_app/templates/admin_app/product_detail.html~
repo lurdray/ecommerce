@@ -1,0 +1,102 @@
+ {% extends 'admin_app/base.html' %}
+{% load staticfiles %}
+  
+
+
+{% block content %}
+    <div class="ps-page--product ps-page--product-box">
+        <div class="container">
+        
+        	<div class="ps-product--detail ps-product--box">
+                <div class="ps-product__header ps-product__box">
+              
+                <div class="ps-product__content ps-tab-root">
+                	<div class="row">
+                		<h3>{{ product.name }}'s Details</h3>
+                	</div>
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="ps-product__box">
+                                <ul class="ps-tab-list">
+                                    <li class="active"><a href="#tab-1">Description</a></li>
+                                    <li><a href="#tab-2">Specification</a></li>
+                                    <li><a href="#tab-3">Reviews</a></li>
+                                    <li><a href="#tab-4">Images</a></li>
+                                    <li><a href="#tab-5">More</a></li>
+                                </ul>
+                                <div class="ps-tabs">
+                                    <div class="ps-tab active" id="tab-1">
+                                        <div class="ps-document">
+                                            <h5>Description</h5>
+                                            <p>{{ product.description }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="ps-tab active" id="tab-2">
+                                        <div class="ps-document">
+                                            <h5>Specification</h5>
+                                            <p>{{ product.specification }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="ps-tab" id="tab-3">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered ps-table ps-table--specification">
+                                                <tbody>
+                                                	{% if reviews %}
+														{% for review in reviews %}
+															<tr>
+				                                                <td>{{ review }}</td>
+				                                                <td>{{ review }}</td>
+				                                            </tr>
+														{% endfor %}
+														
+													{% else %}
+														<p>Sorry, No Reviews yet!</p>
+														
+													{% endif %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="ps-tab" id="tab-4">
+                                        <div class="row">
+                                        	<div class="col-md-3">
+                                        		<img src="{{ product.image_1.url }}" >
+                                        	</div>
+                                        	<div class="col-md-3">
+                                        		<img src="{{ product.image_2.url }}" >
+                                        	</div>
+                                        	<div class="col-md-3">
+                                        		<img src="{{ product.image_3.url }}" >
+                                        	</div>
+                                        	<div class="col-md-3">
+                                        		<img src="{{ product.image_4.url }}" >
+                                        	</div>
+                                        </div>
+                                    </div>
+                                    <div class="ps-tab" id="tab-5">
+                                        <h4>Name:</h4>
+                                        <p>{{ product.name }}</p><br />
+                                        <h4>Category:</h4>
+                                        <p>{{ product.category }}</p><br />
+                                        <h4>Price:</h4>
+                                        <p>{{ product.price }}</p><br />
+                                        <h4>Rating:</h4>
+                                        <p>{{ product.rating }}</p><br />
+                                        <h4>Shipping Charge:</h4>
+                                        <p>{{ product.shipping_charge }}</p><br />
+                                        <h4>Rating:</h4>
+                                        <p>{{ product.rating }}</p><br />
+                                    </div>   
+                                </div>
+                            </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+       </div> </div> 
+                   
+                    
+          {% endblock %}

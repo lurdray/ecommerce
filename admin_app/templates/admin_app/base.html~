@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Fratishop -home for all furniture!</title>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&amp;amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/plugins/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/fonts/Linearicons/Linearicons/Font/demo-files/demo.css' %}">
+    <link rel="stylesheet" href="{% static 'main/plugins/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/plugins/owl-carousel/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/plugins/owl-carousel/assets/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/plugins/slick/slick/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'main/plugins/nouislider/nouislider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/plugins/lightGallery-master/dist/css/lightgallery.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css' %}">
+    <link rel="stylesheet" href="{% static 'main/plugins/select2/dist/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/market-place-1.cs' %}">
+</head>
+<body>
+    
+    
+<div class="ps-vendor-dashboard">
+        <div class="container">
+            <div class="ps-section__header">
+                <h3>Fratishop Dashboard</h3>
+                <p>Designed base on WC Vendor Plugin. Martfury also fully comptatiable with other popular plugins as Dokan, YITH, etc .Can help you turns your site into multi-vendor eCommerce site.</p>
+            </div>
+            <div class="ps-section__content">
+                <ul class="ps-section__links">
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'dashboard_all_products' %}">Products</a></li>
+                    <li><a href="{% url 'all_orders' %}">Orders</a></li>
+                    <li><a href="{% url 'all_customers' %}">Customers</a></li>
+                    <li><a href="{% url 'dashboard_logout' %}">Logout</a></li>
+                </ul>
+                <div class="ps-block--vendor-dashboard">
+					
+						{% block content %}
+			
+        				{% endblock content %}
+				
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br /><br /><br />
+    
+    
+
+    
+
+
+    <script src="{% static 'main/plugins/jquery.min.js' %}"></script>
+    <script src="{% static 'main/plugins/nouislider/nouislider.min.js' %}"></script>
+    <script src="{% static 'main/plugins/popper.min.js' %}"></script>
+    <script src="{% static 'main/plugins/owl-carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'main/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'main/plugins/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'main/plugins/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'main/plugins/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery.matchHeight-min.js' %}"></script>
+    <script src="{% static 'main/plugins/slick/slick/slick.min.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery-bar-rating/dist/jquery.barrating.min.js' %}"></script>
+    <script src="{% static 'main/plugins/slick-animation.min.js' %}"></script>
+    <script src="{% static 'main/plugins/lightGallery-master/dist/js/lightgallery-all.min.js' %}"></script>
+    <script src="{% static 'main/plugins/sticky-sidebar/dist/sticky-sidebar.min.js' %}"></script>
+    <script src="{% static 'main/plugins/select2/dist/js/select2.full.min.js' %}"></script>
+    <script src="{% static 'main/plugins/gmap3.min.js' %}"></script>
+    <!-- custom scripts-->
+    <script src="{% static 'main/js/main.js' %}"></script>
+</body>
+
+</html>

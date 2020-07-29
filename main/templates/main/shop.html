@@ -1,0 +1,521 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+  
+
+
+{% block content %}
+
+</style>
+<div class="ps-page--shop">
+        <div class="ps-container">
+            <div class="ps-shop-categories">
+            	<br /> <br /> <br />
+                <div class="row align-content-lg-stretch">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
+                        <div class="ps-block--category-2" data-mh="categories">
+                            <div class="ps-block__thumbnail"><img src="img/categories/shop/1.jpg" alt=""></div>
+                            
+                            <div class="ps-block__content">
+                                <h4>BEDROOM</h4>
+                                <ul>
+                                	{% if bedroom_section  %}
+                                		{% for item in bedroom_section %}
+				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
+				                          {% endfor %}
+				                          
+				                         {% else %}
+				                         	<li>Sorry, Nothing Yet!</li>
+				                         {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
+                        <div class="ps-block--category-2" data-mh="categories">
+                            <div class="ps-block__thumbnail"><img src="img/categories/shop/2.jpg" alt=""></div>
+                            <div class="ps-block__content">
+                                <h4>KITCHEN & DINNING</h4>
+                                <ul>
+                                	{% if kitchen_dinning_section  %}
+                                		{% for item in kitchen_dinning_section %}
+				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
+				                          {% endfor %}
+				                          
+				                         {% else %}
+				                         	<li>Sorry, Nothing Yet!</li>
+				                         {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
+                        <div class="ps-block--category-2" data-mh="categories">
+                            <div class="ps-block__thumbnail"><img src="img/categories/shop/3.jpg" alt=""></div>
+                            <div class="ps-block__content">
+                                <h4>LIVING ROOM</h4>
+                                <ul>
+                                	{% if living_room_section  %}
+                                		{% for item in living_room_section %}
+				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
+				                          {% endfor %}
+				                          
+				                         {% else %}
+				                         	<li>Sorry, Nothing Yet!</li>
+				                         {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
+                        <div class="ps-block--category-2" data-mh="categories">
+                            <div class="ps-block__thumbnail"><img src="img/categories/shop/4.jpg" alt=""></div>
+                            <div class="ps-block__content">
+                                <h4>OFFICE</h4>
+                                <ul>
+                                	{% if office_section  %}
+                                		{% for item in office_section %}
+				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
+				                          {% endfor %}
+				                          
+				                         {% else %}
+				                         	<li>Sorry, Nothing Yet!</li>
+				                         {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
+                        <div class="ps-block--category-2" data-mh="categories">
+                            <div class="ps-block__thumbnail"><img src="img/categories/shop/5.jpg" alt=""></div>
+                            <div class="ps-block__content">
+                                <h4>KIDDIES</h4>
+                                <ul>
+                                	{% if kiddies_section  %}
+                                		{% for item in kiddies_section %}
+				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
+				                          {% endfor %}
+				                          
+				                         {% else %}
+				                         	<li>Sorry, Nothing Yet!</li>
+				                         {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
+                        <div class="ps-block--category-2" data-mh="categories">
+                            <div class="ps-block__thumbnail"><img src="img/categories/shop/6.jpg" alt=""></div>
+                            <div class="ps-block__content">
+                                <h4>ACESSORIES</h4>
+                                <ul>
+                                	{% if acessories_section  %}
+                                		{% for item in acessories_section %}
+				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
+				                          {% endfor %}
+				                          
+				                         {% else %}
+				                         	<li>Sorry, Nothing Yet!</li>
+				                         {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ps-layout--shop">
+                <div class="ps-layout__left">
+                    <aside class="widget widget_shop">
+                        <h4 class="widget-title">Categories</h4>
+                        <ul class="ps-list--categories">
+                             <li class="current-menu-item menu-item-has-children"><a href="{% url 'category' 'BEDROOM' %}">BEDROOM</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                            </li>
+                             <li class="current-menu-item menu-item-has-children"><a href="{% url 'category' 'KITCHEN & DINNING' %}">KITCHEN &amp; DINNING</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                            </li>
+                             <li class="current-menu-item menu-item-has-children"><a href="{% url 'category' 'KIDDIES' %}">KIDDIES</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                            </li>
+                             <li class="current-menu-item menu-item-has-children"><a href="{% url 'category' 'LIVING ROOM' %}">LIVING ROOM</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                            </li>
+                             <li class="current-menu-item menu-item-has-children"><a href="{% url 'category' 'OFFICE' %}">OFFICE</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                            </li>
+                            <li class="current-menu-item menu-item-has-children"><a href="{% url 'category' 'ACESSORIES' %}">ACCESSORIES</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                            </li>
+                        </ul>
+                    </aside>
+                    <aside class="widget widget_shop">
+                        <h4 class="widget-title">Filter</h4>
+                        	<hr>
+                        	<br />
+                        	
+                        <form method="post">
+                        	{% csrf_token %}
+                          <figure>
+                            <h4 class="widget-title">By Rating</h4>
+                            <div class="ps-checkbox">
+                                <input class="form-control" type="checkbox" value="" id="review-1" name="review">
+                                <label for="review-1"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i></span><small>(5)</small></label>
+                            </div>
+                            <div class="ps-checkbox">
+                                <input class="form-control" type="checkbox" value="2" id="review-2" name="review">
+                                <label for="review-2"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i></span><small>(4)</small></label>
+                            </div>
+                            <div class="ps-checkbox">
+                                <input class="form-control" type="checkbox" value="3" id="review-3" name="review">
+                                <label for="review-3"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(3)</small></label>
+                            </div>
+                            <div class="ps-checkbox">
+                                <input class="form-control" type="checkbox" value="4" id="review-4" name="review">
+                                <label for="review-4"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(2)</small></label>
+                            </div>
+                            <div class="ps-checkbox">
+                                <input class="form-control" type="checkbox" value="5" id="review-5" name="review">
+                                <label for="review-5"><span><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(1)</small></label>
+                            </div>
+                        </figure>
+                        
+
+						<figure>
+                            <h4 class="widget-title">By Price</h4>
+								<div class="deque-slider-multirange horizontal">
+								  <span id="label"></span>
+								  <div>
+									<label>
+									  min
+									  <input style="font-size: 10px;" name="min_value" type="number">
+									</label>
+									<div class="slider" style="height: 2px; width: 200px;">
+									  <button class="minPrice"
+									  role="slider"
+									  aria-valuemin="150000"
+									  aria-valuemax="450000"
+									  aria-orientation="horizontal"
+									  aria-label="Min Price"
+									  aria-valuenow="220000"
+									  data-increment="10000">
+									  </button>
+									  <button class="maxPrice"
+									  role="slider"
+									  aria-valuemin="150000"
+									  aria-valuemax="450000"
+									  aria-orientation="horizontal"
+									  aria-label="Max Price"
+									  aria-valuenow="360000"
+									  data-increment="10000">
+									  </button>
+									</div>
+									<label>
+									  max
+									  <input style="font-size: 10px;" name="max_value" type="number">
+									</label>
+								  </div>
+								  <div id="alertRegion"></div>
+								</div>
+
+                           </figure>
+                            
+
+                         <figure>
+                         	<h4 class="widget-title">By Availability</h4>
+                         	<select name="availability" class="form-control">
+									<option value="in_stock">In Stock</option>
+								  <option value="out_of_stock">Out of Stock</option>
+							</select>
+                         
+                         
+                         
+                          </figure>
+                         
+                       
+
+                        <figure>
+                            <h4 class="widget-title">By Color</h4>
+                            <div class="ps-checkbox ps-checkbox--color color-1 ps-checkbox--inline">
+                                <input class="form-control" type="checkbox" value="color-1" id="color-1" name="colors">
+                                <label for="color-1"></label>
+                            </div>
+                            <div class="ps-checkbox ps-checkbox--color color-2 ps-checkbox--inline">
+                                <input class="form-control" type="checkbox" value="color-2" id="color-2" name="colors">
+                                <label for="color-2"></label>
+                            </div>
+                            <div class="ps-checkbox ps-checkbox--color color-3 ps-checkbox--inline">
+                                <input class="form-control" type="checkbox" value="color-3" id="color-3" name="colors">
+                                <label for="color-3"></label>
+                            </div>
+                            <div class="ps-checkbox ps-checkbox--color color-4 ps-checkbox--inline">
+                                <input class="form-control" type="checkbox" value="color-4" id="color-4" name="colors">
+                                <label for="color-4"></label>
+                            </div>
+                            <div class="ps-checkbox ps-checkbox--color color-5 ps-checkbox--inline">
+                                <input class="form-control" type="checkbox" value="color-5" id="color-5" name="colors">
+                                <label for="color-5"></label>
+                            </div>
+                            <div class="ps-checkbox ps-checkbox--color color-6 ps-checkbox--inline">
+                                <input class="form-control" type="checkbox" value="color-6" id="color-6" name="colors">
+                                <label for="color-6"></label>
+                            </div>
+                            <div class="ps-checkbox ps-checkbox--color color-7 ps-checkbox--inline">
+                                <input class="form-control" type="checkbox" value="color-7" id="color-7" name="colors">
+                                <label for="color-7"></label>
+                            </div>
+                            <div class="ps-checkbox ps-checkbox--color color-8 ps-checkbox--inline">
+                                <input class="form-control" type="checkbox" value="color-8" id="color-8" name="colors">
+                                <label for="color-8"></label>
+                            </div>
+                        </figure>
+                        
+                        <div class="form-group submit">
+							<button class="ps-btn">Go</button>
+				        </div>
+                        
+                        </form>
+                    </aside>
+                </div>
+                <div class="ps-layout__right">
+                    <div class="ps-block--shop-features">
+                        <div class="ps-block__header">
+                            <h3>Best Sale Items</h3>
+                            <div class="ps-block__navigation"><a class="ps-carousel__prev" href="#recommended1"><i class="icon-chevron-left"></i></a><a class="ps-carousel__next" href="#recommended1"><i class="icon-chevron-right"></i></a></div>
+                        </div>
+                        <div class="ps-block__content">
+                            <div class="owl-slider" id="recommended1" data-owl-auto="true" data-owl-loop="true" data-owl-speed="10000" data-owl-gap="30" data-owl-nav="false" data-owl-dots="false" data-owl-item="6" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
+                                {% if section_one %}
+                                		{% for item in section_one %}
+                                <div class="ps-product">
+                                    <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
+                                        <ul class="ps-product__actions">
+                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
+                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="ps-product__container"><a class="ps-product__vendor" href="{% url 'category' item.category %}">{{ item.category }}</a>
+                                        <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
+                                            <div class="ps-product__rating">
+                                                <select class="ps-rating" data-read-only="true">
+                                                    <option value="1">1</option>
+                                                    <option value="1">2</option>
+                                                    <option value="1">3</option>
+                                                    <option value="1">4</option>
+                                                    <option value="2">5</option>
+                                                </select><span>01</span>
+                                            </div>
+                                            <p class="ps-product__price">{{ item.price }}</p>
+                                        </div>
+                                        <div class="ps-product__content hover"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
+                                            <p class="ps-product__price">{{ item.price }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {% endfor %}
+				                     {% else %}
+				                     	<div class="ps-product">
+				                     		<p>Sorry, Nothing Yet!</p>
+				                     	</div>
+				                     	
+				                     {% endif %}
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-block--shop-features">
+                        <div class="ps-block__header">
+                            <h3>Recommended Items</h3>
+                            <div class="ps-block__navigation"><a class="ps-carousel__prev" href="#recommended"><i class="icon-chevron-left"></i></a><a class="ps-carousel__next" href="#recommended"><i class="icon-chevron-right"></i></a></div>
+                        </div>
+                        <div class="ps-block__content">
+                            <div class="owl-slider" id="recommended" data-owl-auto="true" data-owl-loop="true" data-owl-speed="10000" data-owl-gap="30" data-owl-nav="false" data-owl-dots="false" data-owl-item="6" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
+                            	{% if section_two %}
+                                		{% for item in section_two %}
+                            
+                                <div class="ps-product">
+                                    <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
+                                        <div class="ps-product__badge"></div>
+                                        <ul class="ps-product__actions">
+                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
+                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="ps-product__container"><a class="ps-product__vendor" href="{% url 'category' item.category %}">{{ item.category }}</a>
+                                        <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
+                                            <div class="ps-product__rating">
+                                                <select class="ps-rating" data-read-only="true">
+                                                    <option value="1">1</option>
+                                                    <option value="1">2</option>
+                                                    <option value="1">3</option>
+                                                    <option value="1">4</option>
+                                                    <option value="2">5</option>
+                                                </select><span>01</span>
+                                            </div>
+                                            <p class="ps-product__price sale">{{ item.price }}<del>{{ item.old_price }}</del></p>
+                                        </div>
+                                        <div class="ps-product__content hover"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
+                                            <p class="ps-product__price sale">{{ item.price }}<del>{{ item.old_price }}</del></p>
+                                        </div>
+                                    </div>
+                                </div>
+							
+							{% endfor %}
+				                     {% else %}
+				                     	<div class="ps-product">
+				                     		<p>Sorry, Nothing Yet!</p>
+				                     	</div>
+				                     	
+				                     {% endif %}
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-shopping ps-tab-root">
+                        <div class="ps-shopping__header">
+                            <p><strong> 36</strong> Products found</p>
+                            <div class="ps-shopping__actions">
+                                <select class="ps-select" data-placeholder="Sort Items">
+                                    <option>Sort by latest</option>
+                                    <option>Sort by popularity</option>
+                                    <option>Sort by average rating</option>
+                                    <option>Sort by price: low to high</option>
+                                    <option>Sort by price: high to low</option>
+                                </select>
+                                <div class="ps-shopping__view">
+                                    <p>View</p>
+                                    <ul class="ps-tab-list">
+                                        <li class="active"><a href="#tab-1"><i class="icon-grid"></i></a></li>
+                                        <li><a href="#tab-2"><i class="icon-list4"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ps-tabs">
+                            <div class="ps-tab active" id="tab-1">
+                                <div class="ps-shopping-product">
+                                    <div class="row">
+                                    	
+                                    	{% if section_three %}
+                                    			{% for item in section_three %}
+                                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 ">
+                                            <div class="ps-product">
+                                                <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
+                                                    <ul class="ps-product__actions">
+                                                        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                                        <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="ps-product__container"><a class="ps-product__vendor" href="{% url 'category' item.category %}">{{ item.category }}</a>
+                                                    <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
+                                                        <p class="ps-product__price">{{ item.price }}</p>
+                                                    </div>
+                                                    <div class="ps-product__content hover"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
+                                                        <p class="ps-product__price">{{ item.price }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        		
+                                        		{% else %}
+                                        			<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 ">
+                                            			<div class="ps-product">
+                                            				<p>Sorry, Nothing Yet!</p>
+														</div>
+													</div>
+                                            		
+                                            {% endif %}
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ps-tab" id="tab-2">
+                                <div class="ps-shopping-product">
+                                
+                                {% if section_three %}
+                                    			{% for item in section_three %}
+                                    <div class="ps-product ps-product--wide">
+                                        <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
+                                        </div>
+                                        <div class="ps-product__container">
+                                            <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
+                                                <p class="ps-product__vendor">Category:<a href="{% url 'category' item.category %}">{{ item.category }}</a></p>
+                                                <ul class="ps-product__desc">
+                                                    <li> {{ item.description }}</li>
+                                                    <li> {{ item.specification }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="ps-product__shopping">
+                                                <p class="ps-product__price">{{ item.price }}</p><a class="ps-btn" href="{% url 'product_detail' item.slug %}">Learn More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                        		
+                                        		{% else %}
+                                        			<div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 ">
+                                            			<div class="ps-product">
+                                            				<p>Sorry, Nothing Yet!</p>
+														</div>
+													</div>
+                                            		
+                                            {% endif %}
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="shop-filter-lastest" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="list-group"><a class="list-group-item list-group-item-action" href="#">Sort by</a><a class="list-group-item list-group-item-action" href="#">Sort by average rating</a><a class="list-group-item list-group-item-action" href="#">Sort by latest</a><a class="list-group-item list-group-item-action" href="#">Sort by price: low to high</a><a class="list-group-item list-group-item-action" href="#">Sort by price: high to low</a><a class="list-group-item list-group-item-action text-center" href="#" data-dismiss="modal"><strong>Close</strong></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+$('#multi').mdbRange({
+  width: '100%',
+  direction: 'vertical',
+  value: {
+    min: 0,
+    max: 100,
+  },
+  single: {
+    active: true,
+    value: {
+      step: 1,
+      symbol: ''
+    },
+    counting: false,
+    countingTarget: null,
+    bgThumbColor: '#4285F4',
+    textThumbColor: '#fff',
+    multi: {
+      active: true,
+      value: {
+        step: 1,
+        symbol: ''
+      },
+      counting: false,
+      rangeLength: 2,
+      countingTarget: null,
+      bgThumbColor: '#4285F4',
+      textThumbColor: '#fff'
+    },
+  }
+});
+</script>
+{% endblock %}

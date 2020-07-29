@@ -1,0 +1,95 @@
+ {% extends 'main/base.html' %}
+{% load staticfiles %}
+  
+
+
+{% block content %}
+ 
+
+    <div class="ps-page--simple">
+        <div class="ps-section--shopping ps-shopping-cart">
+            <div class="container">
+                <div class="ps-section__header">
+                    <h1>Shopping Cart</h1>
+                </div>
+                <div class="ps-section__content">
+                    <div class="table-responsive">
+                        <table class="table ps-table--shopping-cart">
+                            <thead>
+                                <tr>
+                                    <th>Product(s)</th>
+                                    <th>PRICE</th>
+                                    <th>QUANTITY</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	{% if product_quantitys %}
+                               
+                                	{% for item in product_quantitys %}
+                                	 <tr>
+                                    <td>
+                                        <div class="ps-product--cart">
+                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
+                                            <div class="ps-product__content"><a href="product-default.html">{{ item.product.name }}</a>
+                                                <p>Category:<strong> {{ item.product.category }}</strong></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="price">{{ item.product.price }}</td>
+                                    <td>
+                                    	<p><strong>{{ item.quantity }}</strong></p>
+                                    </td>
+                                    <td><a href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a></td>
+									</tr>
+                                    {% endfor %}
+                                   
+                                    {% else %}
+                                    	<tr>
+                                    	<td>Nothing yet!</td>
+                                    	<td>Nothing yet!</td>
+                                    	<td>Nothing yet!</td>
+                                    	<td></td>
+                                    	</tr>
+                                    {% endif %}
+                                
+                             </tbody>
+                        </table>
+                    </div>
+                    <div class="ps-section__cart-actions"><a class="ps-btn" href="{% url 'all_products' %}"><i class="icon-arrow-left"></i> Back to Shop</a></div>
+                </div>
+                <div class="ps-section__footer">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                            <div class="ps-block--shopping-total">
+                                <div class="ps-block__header">
+                                    <p>Your Items<span>{{ product_quantitys.product.count }}</span></p>
+                                </div>
+                                <div class="ps-block__content">
+                                    <ul class="ps-block__product">
+                                    	{% if product_quantitys %}
+                                    		{% for item in product_quantitys %}
+                                        		<li><span class="ps-block__shop">{{ item.product.name }}</span><span class="ps-block__shipping">{{ item.quantity }}</span></li>
+                                        	{% endfor %}
+                                        {% else %}
+                                        	<li>Sorry, Nothing Yet!</li>
+                                        {% endif %}
+                                    </ul>
+                                    <h3>Total <span>{{ total_price }}</span></h3>
+                                </div>
+                            </div>
+                            
+                            {% if total_price == 0 %}
+                            	<a class="ps-btn ps-btn--fullwidth" href="{% url 'shop' %}">Visit Store</a>
+                            {% else %}
+                            	<a class="ps-btn ps-btn--fullwidth" href="{% url 'checkout' %}">Proceed to checkout</a>
+                            {% endif %}    	
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+  {% endblock %}
