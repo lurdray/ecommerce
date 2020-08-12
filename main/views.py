@@ -61,6 +61,7 @@ def IndexView(request):
 			total_price += (item.product.price * int(str(item.quantity)))
 	
 		product = Product.objects.all()
+		all_products = Product.objects.all()
 		section_one = Product.objects.all()[:6]
 		section_two = Product.objects.all()[:6]
 		section_three = Product.objects.all()[:6]
@@ -74,12 +75,13 @@ def IndexView(request):
 		kiddies = Product.objects.filter(category="KIDDIES")[:10]
 		acessories = Product.objects.filter(category="ACESSORIES")[:10]
 	
-		context = {"bedrooms": bedrooms, "kitchens": kitchens, "living_rooms": living_rooms, "offices": offices, "kiddies": kiddies, "acessories": acessories,  "total_price": total_price, "product_quantitys": product_quantitys, "product": product, "section_one": section_one, "section_two": section_two, "section_three": section_three, "section_four": section_four, "section_five": section_five}
+		context = {"bedrooms": bedrooms, "kitchens": kitchens, "living_rooms": living_rooms, "offices": offices, "kiddies": kiddies, "acessories": acessories,  "total_price": total_price, "product_quantitys": product_quantitys, "product": product, "all_products": all_products, "section_one": section_one, "section_two": section_two, "section_three": section_three, "section_four": section_four, "section_five": section_five}
 		return render(request, 'main/index.html', context)
 	
 	
 def CategoryView(request, category):
 	products = Product.objects.filter(category=category)
+	all_products = Product.objects.all()
 	try:
 		product = products[0]
 		category = product.category
@@ -95,7 +97,7 @@ def CategoryView(request, category):
 		total_price += (item.product.price * int(str(item.quantity)))
 	
 	
-	context = {"total_price": total_price, "product_quantitys": product_quantitys, "products": products, "page_title": page_title}
+	context = {"total_price": total_price, "product_quantitys": product_quantitys, "products": products, "page_title": page_title, "all_products": all_products}
 	return render(request, 'product/all_products.html', context)
 	
 	
@@ -109,6 +111,8 @@ def ShopView(request):
 		
 		availability = request.POST.get('availability')		
 		colors = request.POST.getlist('colors')
+		
+		#return HttpResponse(ratings)
 		
 		all_products = Product.objects.all()
 		filtered_products = set()
@@ -124,7 +128,7 @@ def ShopView(request):
 					
 				
 		for rating in ratings:
-			rate_match_products = Product.objects.filter(rating=rating)
+			rate_match_products = Product.objects.filter(rating=int(rating))
 			for eachitem in rate_match_products:
 				filtered_products.add(eachitem)
 		#	product = get_object_or_404(Product, rating=rating)
@@ -157,6 +161,7 @@ def ShopView(request):
 		section_one = Product.objects.all()[:6]
 		section_two = Product.objects.all()[:6]
 		section_three = Product.objects.all()[:6]
+		all_products = Product.objects.all()
 	
 		cart = get_object_or_404(Cart, user__pk=request.user.id)
 		product_quantitys = cart.product_quantitys.all()
@@ -165,7 +170,7 @@ def ShopView(request):
 		for item in product_quantitys:
 			total_price += (item.product.price * int(str(item.quantity)))
 	
-		context = {"total_price": total_price, "product_quantitys": product_quantitys, "section_one": section_one, "section_two": section_two, "section_three": section_three, "bedroom_section": bedroom_section, "kitchen_dinning_section": kitchen_dinning_section, "living_room_section": living_room_section, "office_section": office_section, "kiddies_section": kiddies_section, "acessories_section": acessories_section}
+		context = {"total_price": total_price, "product_quantitys": product_quantitys, "section_one": section_one, "section_two": section_two, "section_three": section_three, "bedroom_section": bedroom_section, "all_products": all_products, "kitchen_dinning_section": kitchen_dinning_section, "living_room_section": living_room_section, "office_section": office_section, "kiddies_section": kiddies_section, "acessories_section": acessories_section}
 		return render(request, 'main/shop.html', context)
 
 
@@ -183,14 +188,14 @@ def CheckoutView(request):
 		full_name = request.POST.get("full_name")
 		company_name = request.POST.get("company_name")
 		email = request.POST.get("email")
-		password = request.POST.get("password")
+		#password = request.POST.get("password")
 		country = request.POST.get("country")
 		phone = request.POST.get("phone")
 		address = request.POST.get("address")
 		order_note = request.POST.get("order_note")
 		pub_date = timezone.now()
 	
-		customer = Customer.objects.create(full_name=full_name, company_name=company_name, email=email, password=password, country=country, phone=phone, address=address, order_note=order_note, pub_date=pub_date)
+		customer = Customer.objects.create(full_name=full_name, company_name=company_name, email=email, country=country, phone=phone, address=address, order_note=order_note, pub_date=pub_date)
 		customer.save()
 		
 		cart = get_object_or_404(Cart, user__pk=request.user.id)

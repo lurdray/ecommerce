@@ -53,7 +53,11 @@
 				                            <tr>
 				                                <td>{{ product.pub_date }}</td>
 				                                <td><a href="{% url 'dashboard_product_detail' product.slug %}">{{ product.name }}.</a></td>
-				                                <td>{{ product.quantity }}</td>
+				                                {% if product.quantity <= product.threshold %}
+				                                	<td style="background-color: red; color: white;">{{ product.quantity }}</td>
+				                                {% else %}
+				                                	<td>{{ product.quantity }}</td>
+				                                {% endif %}
 				                                <td>{{ product.price }}</td>
 				                                <td>{{ product.category }}</td>
 				                                <td>{{ product.rating }}</td>

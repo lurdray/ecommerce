@@ -40,17 +40,17 @@
 				                                    <div class="ps-product">
 				                                        <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
 				                                            <ul class="ps-product__actions">
-				                                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-				                                                <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
-				                                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-				                                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
-				                                            </ul>
+														        <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
+														        <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
+														        <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-heart"></i></a></li>
+														        <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-chart-bars"></i></a></li>
+														    </ul>
 				                                        </div>
 				                                        <div class="ps-product__container"><a class="ps-product__vendor" href="#">{{ item.category }}</a>
-				                                            <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{ item.name }}</a>
+				                                            <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
 				                                                <p class="ps-product__price">{{ item.price }}</p>
 				                                            </div>
-				                                            <div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">{{ item.name }}</a>
+				                                            <div class="ps-product__content hover"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
 				                                                <p class="ps-product__price">{{ item.price }}</p>
 				                                            </div>
 				                                        </div>
@@ -73,10 +73,10 @@
                                 	{% if products %}
                                     		{% for item in products %}
 						                        <div class="ps-product ps-product--wide">
-						                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ item.image_1.url }}" alt=""></a>
+						                            <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
 						                            </div>
 						                            <div class="ps-product__container">
-						                                <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{ item.name }}</a>
+						                                <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
 						                                    <p class="ps-product__vendor">Sold by:<a href="#">{{ item.category }}</a></p>
 						                                    <ul class="ps-product__desc">
 						                                        <li>{{ item.description }}</li>

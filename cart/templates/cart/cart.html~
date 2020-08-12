@@ -30,8 +30,8 @@
                                 	 <tr>
                                     <td>
                                         <div class="ps-product--cart">
-                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
-                                            <div class="ps-product__content"><a href="product-default.html">{{ item.product.name }}</a>
+                                            <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.product.slug %}"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
+                                            <div class="ps-product__content"><a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a>
                                                 <p>Category:<strong> {{ item.product.category }}</strong></p>
                                             </div>
                                         </div>
@@ -69,7 +69,8 @@
                                     <ul class="ps-block__product">
                                     	{% if product_quantitys %}
                                     		{% for item in product_quantitys %}
-                                        		<li><span class="ps-block__shop">{{ item.product.name }}</span><span class="ps-block__shipping">{{ item.quantity }}</span></li>
+                                        		<li><span class="ps-block__shops">Name: {{ item.product.name }}</span><span class="ps-block__shippings">Quanity: {{ item.quantity }}</span><span class="ps-block__shippings">Price: {{ item.product.price }}</span><span class="ps-block__shippings">Shipping Charge: {{ item.total_shipping_charge }}</span>
+                                        		</li>
                                         	{% endfor %}
                                         {% else %}
                                         	<li>Sorry, Nothing Yet!</li>
@@ -89,6 +90,62 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    
+    
+    
+    <div class="ps-product-list ps-clothings">
+            <div class="ps-container">
+            		<div class="ps-section__header">
+		                <h3>You may also buy some of these.</h3>
+		            </div>
+                    <div class="ps-section__content">
+                    <div class="ps-carousel--nav owl-slider" data-owl-auto="false" data-owl-loop="false" data-owl-speed="10000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="7" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-item-xl="6" data-owl-duration="1000" data-owl-mousedrag="on">
+                    	{% if section_two %}
+                    		{% for item in section_two %}
+				                <div class="ps-product">
+				                    <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
+				                        <div class="ps-product__badge">-16%</div>
+				                        <ul class="ps-product__actions">
+				                            <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
+				                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
+				                            <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-heart"></i></a></li>
+				                            <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-chart-bars"></i></a></li>
+				                        </ul>
+				                    </div>
+				                    <div class="ps-product__container"><a class="ps-product__vendor" href="#">{{ item.category }}</a>
+				                        <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
+				                            <div class="ps-product__rating">
+				                                <select class="ps-rating" data-read-only="true">
+				                                    <option value="1">1</option>
+				                                    <option value="1">2</option>
+				                                    <option value="1">3</option>
+				                                    <option value="1">4</option>
+				                                    <option value="2">5</option>
+				                                </select><span>01</span>
+				                            </div>
+				                            <p class="ps-product__price sale">{{ item.price }}<del>{{ item.old_price }} </del></p>
+				                        </div>
+				                        <div class="ps-product__content hover"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
+				                            <p class="ps-product__price sale">{{ item.price }}<del>{{ item.old_price }} </del></p>
+				                        </div>
+				                    </div>
+				                </div>
+				                
+				             {% endfor %}
+				             
+				          {% else %}
+				          		 <div class="ps-product">
+				          		 	<p>Sorry, Nothing yet!</p>
+				          		 </div>
+				         	{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         </div>
     </div>
     
     

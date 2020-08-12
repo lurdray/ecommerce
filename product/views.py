@@ -1,5 +1,6 @@
 from product.models import Product, ProductQuantity, Quantity, ProductColorConnector
 from cart.models import CartProductQuantityConnector, Cart
+from shipping.views import GetDistance
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
@@ -14,6 +15,7 @@ def AddProductView(request):
 		specification = request.POST.get("specification")
 		category = request.POST.get("category")
 		quantity = request.POST.get("quantity")
+		threshold = request.POST.get("threshold")
 		price = request.POST.get("price")
 		rating = request.POST.get("rating")
 		colors = request.POST.getlist('colors')
@@ -31,7 +33,7 @@ def AddProductView(request):
 		pub_date = timezone.now()
 
 
-		product = Product.objects.create(name=name, image_1=image_1, image_2=image_2, image_3=image_3, image_4=image_4, description=description, specification=specification, category=category, quantity=quantity, price=price, rating=rating, shipping_charge=shipping_charge, dimension=dimension, delivery_info=delivery_info, slug=name, pub_date=pub_date)
+		product = Product.objects.create(name=name, image_1=image_1, image_2=image_2, image_3=image_3, image_4=image_4, description=description, specification=specification, category=category, quantity=quantity, threshold=threshold, price=price, rating=rating, shipping_charge=shipping_charge, dimension=dimension, delivery_info=delivery_info, slug=name, pub_date=pub_date)
 		product.save()
 		
 		for item in colors:
@@ -49,8 +51,8 @@ def AddProductView(request):
 	
 def ProductDetailView(request, slug):
 	if request.method == "POST":
-		quantity = int(str(request.POST.get("quantity")))
-		quantity = Quantity.objects.create(quantity=quantity)
+		quantity_k = int(str(request.POST.get("quantity")))
+		quantity = Quantity.objects.create(quantity=quantity_k)
 		quantity.save()
 		
 		user_id = request.user.id
@@ -59,16 +61,27 @@ def ProductDetailView(request, slug):
 		cart = get_object_or_404(Cart, user__pk=user_id)
 		product = get_object_or_404(Product, slug=slug)
 		
-		product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity)
-		product_quantity.save()
+		#var = "%s, %s" % (product.quantity, quantity)
+		#return HttpResponse(var)
+		#code for checking if the customer orders more than the available quantity
+		if quantity_k > product.quantity:
+			return HttpResponse("Sorry, There are not enough amout of this product.")
+	
+		else:	
+			distance = GetDistance()
+			total_shipping_charge = (product.shipping_charge * distance)
+			product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity, total_shipping_charge=total_shipping_charge)
+			product_quantity.save()
 		
-		cp = CartProductQuantityConnector(cart=cart, product_quantity=product_quantity, pub_date=pub_date)
-		cp.save()
+			cp = CartProductQuantityConnector(cart=cart, product_quantity=product_quantity, pub_date=pub_date)
+			cp.save()
 		
-		return HttpResponseRedirect(reverse("all_products"))
+			return HttpResponseRedirect(reverse("all_products"))
 			
 
 	else:
+		#distance = GetDistance()
+		#return HttpResponse(distance)
 		cart = get_object_or_404(Cart, user__pk=request.user.id)
 		product_quantitys = cart.product_quantitys.all()
 		total_price = 0
@@ -80,7 +93,9 @@ def ProductDetailView(request, slug):
 		section_one = Product.objects.all()[:2]
 		section_two = Product.objects.all()[:6]
 		section_three = Product.objects.all()[:6]
-		context = {"total_price": total_price, "product_quantitys": product_quantitys, "product": product, "section_one": section_one, "section_two": section_two, "section_three": section_three}
+		all_products = Product.objects.all()
+		context = {"total_price": total_price, "product_quantitys": product_quantitys, "product": product, "section_one": section_one, "section_two": section_two, "section_three": section_three, "all_products": all_products}
+		
 		return render(request, 'product/product_detail.html', context)
 	
 	

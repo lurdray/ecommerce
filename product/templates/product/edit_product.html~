@@ -55,8 +55,8 @@
 												                </div>
 												                <div class="col-sm-6">
 												                    <div class="form-group">
-												                        <label>Shipping Charge</label>
-												                        <input name="shipping_charge" class="form-control" type="number" value="{{ product.shipping_charge }}">
+												                        <label>Shipping Rate Per Mile</label>
+												                        <input name="shipping_charge" class="form-control" type="number" min="0.01" max="100" step="0.01" value="{{ product.shipping_charge }}">
 												                    </div>
 												                </div>
 												                <div class="col-sm-6">

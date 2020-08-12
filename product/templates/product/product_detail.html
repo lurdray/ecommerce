@@ -33,7 +33,7 @@
                             <div class="ps-product__info">
                                 <h1>{{ product.name }}</h1>
                                 <div class="ps-product__meta">
-                                    <p>Category:<a href="shop-default.html">{{ product.category }}</a></p>
+                                    <p>Category:<a href="#">{{ product.category }}</a></p>
 
                                 </div>
                                 <h4 class="ps-product__price">{{ product.price }}</h4>
@@ -58,7 +58,7 @@
 											<button type="submit" class="ps-btn ps-btn--black">Add to cart</a>
 											<br />
 										</form>
-                                    </figure><a class="ps-btn" href="{% url 'cart' request.user.id %}"">Buy Now</a>
+                                    </figure><a class="ps-btn" href="{% url 'cart' request.user.id %}">Buy Now</a>
                                     <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
                                     
                                 </div>
@@ -137,12 +137,7 @@
                                         <h4>Price:</h4>
                                         <p>{{ product.price }}</p><br />
                                         <h4>Rating:</h4>
-                                        <p>{{ product.rating }}</p><br />
-                                        <h4>Shipping Charge:</h4>
-                                        <p>{{ product.shipping_charge }}</p><br />
-                                        <h4>Rating:</h4>
-                                        <p>{{ product.rating }}</p><br />
-                                        
+                                        <p>{{ product.rating }}</p><br />  
                                   </div>
 
 
@@ -158,10 +153,9 @@
                         <p><i class="icon-receipt"></i> Supplier give bills for this product.</p>
                         <p><i class="icon-credit-card"></i> Pay online or when receiving goods</p>
                     </aside>
-                    <aside class="widget widget_sell-on-site">
-                        <p><i class="icon-store"></i> Sell on Martfury?<a href="#"> Register Now !</a></p>
+                    <aside class="widget widget_ads">
+                    	<a href="#"><img src="img/ads/product-ads.png" alt=""></a>
                     </aside>
-                    <aside class="widget widget_ads"><a href="#"><img src="img/ads/product-ads.png" alt=""></a></aside>
                     <aside class="widget widget_same-brand">
                         <h3>You may also like.</h3>
                         <div class="widget__content">
@@ -171,10 +165,10 @@
 				                        <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
 				                            <div class="ps-product__badge">-37%</div>
 				                            <ul class="ps-product__actions">
-				                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-				                                <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
-				                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-				                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+				                                <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
+				                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
+				                            <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-heart"></i></a></li>
+				                            <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-chart-bars"></i></a></li>
 				                            </ul>
 				                        </div>
 				                        <div class="ps-product__container"><a class="ps-product__vendor" href="{% url 'product_detail' item.slug %}">{{ item.category }}</a>
@@ -220,11 +214,11 @@
 				                        <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
 				                            <div class="ps-product__badge hot">hot</div>
 				                            <ul class="ps-product__actions">
-				                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-				                                <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
-				                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-				                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
-				                            </ul>
+						                        <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
+						                        <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
+						                        <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-heart"></i></a></li>
+						                        <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-chart-bars"></i></a></li>
+						                    </ul>
 				                        </div>
 				                        <div class="ps-product__container"><a class="ps-product__vendor" href="{% url 'product_detail' item.slug %}">{{ item.category }}</a>
 				                            <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
@@ -268,10 +262,10 @@
 				                <div class="ps-product">
 				                    <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
 				                        <ul class="ps-product__actions">
-				                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-				                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
-				                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-				                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+				                            <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
+				                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
+				                            <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-heart"></i></a></li>
+				                            <li><a href="{% url 'product_detail' item.slug %}" data-toggle="tooltip" data-placement="top" title=""><i class="icon-chart-bars"></i></a></li>
 				                        </ul>
 				                    </div>
 				                    <div class="ps-product__container"><a class="ps-product__vendor" href="{% url 'product_detail' item.slug %}">{{ item.category }}</a>

@@ -31,11 +31,12 @@ class Product(models.Model):
 	#review = models.TextField(default="none")
 	category = models.CharField(max_length=150)
 	quantity = models.IntegerField(blank=True, null=True)
+	threshold = models.IntegerField(blank=True, null=True, default=1)
 	price = models.IntegerField(blank=True, null=True)
 	old_price = models.IntegerField(blank=True, null=True, default=0)
 	rating = models.IntegerField(blank=True, null=True)
 	colors = models.ManyToManyField(Color, through="ProductColorConnector", through_fields=("product", "color"),)
-	shipping_charge = models.IntegerField(blank=True, null=True)
+	shipping_charge = models.FloatField(blank=True, null=True)
 	dimension = models.CharField(max_length=150)
 	delivery_info = models.CharField(max_length=150, default="none")
 	slug = models.SlugField(unique=True, default="rayslug")
@@ -62,6 +63,7 @@ class Quantity(models.Model):
 class ProductQuantity(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.CASCADE, default="")
 	quantity = models.ForeignKey(Quantity, on_delete=models.CASCADE)
+	total_shipping_charge = models.IntegerField(blank=True, null=True)
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 	
 	def __str__(self):

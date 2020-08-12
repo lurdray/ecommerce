@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load staticfiles %}
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -112,7 +113,7 @@
                                 <li class="current-menu-item "><a href="{% url 'category' 'ACESSORIES' %}"><i class="icon-star"></i>ACESSORIES</a></li>
                             </ul>
                         </div>
-                    </div><a class="ps-logo" href="index.html"><img src="img/logo_light.png" alt=""></a>
+                    </div><a class="ps-logo" href="#"><img src="img/logo_light.png" alt=""></a>
                 </div>
                 <div class="header__center">
                     <form class="ps-form--quick-search" method="post">
@@ -133,17 +134,18 @@
                     </form>
                 </div>
                 <div class="header__right">
-                    <div class="header__actions"><a class="header__extra" href="#"><i class="icon-chart-bars"></i><span><i>0</i></span></a><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
+                    <div class="header__actions">
                         <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>{{ product_quantitys.count }}</i></span></a>
                             <div class="ps-cart__content">
                                 <div class="ps-cart__items">
                                 	{% if product_quantitys %}
                                 		{% for item in product_quantitys %}
 				                            <div class="ps-product--cart-mobile">
-				                                <div class="ps-product__thumbnail"><a href="#"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
-				                                <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">{{ item.product.name }}</a>
-				                                    <p><strong>Sold by:</strong>{{ item.product.category }}</p><small>{{ item.product.price }}</small>
-				                                    <p><strong>Quantity</strong>{{ item.quantity }}</p>
+				                                <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.product.slug %}"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
+				                                <div class="ps-product__content"><a class="ps-product__remove" href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a><a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a><br />
+				                                    <span><strong>Quantity: </strong>{{ item.quantity }}</span><br />
+				                                    <pspan><strong>Price: </strong>{{ item.product.price }}</span><br />
+				                                    <span><strong>Shipping Charge: </strong>{{ item.total_shipping_charge }}</span><br /><br />
 				                                </div>
 				                            </div>
 				                          {% endfor %}
@@ -160,8 +162,6 @@
                             </div>
                         </div>
                         <div class="ps-block--user-header">
-                            <div class="ps-block__left"><i class="icon-user"></i></div>
-                            <div class="ps-block__right"><a href="{% url 'login' %}">Login</a><a href="my-account.html">Register</a></div>
                         </div>
                     </div>
                 </div>
@@ -207,21 +207,9 @@
             <div class="header__left">
                 <p>Welcome to Fratishop Online Shopping Store !</p>
             </div>
-            <div class="header__right">
-                <ul class="navigation__extra">
-                    <li>
-                        <div class="ps-dropdown"><a href="#">US Dollar</a>
-                            <ul class="ps-dropdown-menu">
-                                <li><a href="#">Us Dollar</a></li>
-                                <li><a href="#">Euro</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
         </div>
         <div class="navigation--mobile">
-            <div class="navigation__left"><a class="ps-logo" href="index.html"><img src="img/logo_light.png" alt=""></a></div>
+            <div class="navigation__left"><a class="ps-logo" href="{% url 'index' %}"><img src="img/logo_light.png" alt=""></a></div>
             <div class="navigation__right">
                 <div class="header__actions">
                     <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>{{ product_quantitys.count }}</i></span></a>
@@ -231,9 +219,11 @@
                                 		{% for item in product_quantitys %}
 				                            <div class="ps-product--cart-mobile">
 				                                <div class="ps-product__thumbnail"><a href="#"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
-				                                <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">{{ item.product.name }}</a>
-				                                    <p><strong>Sold by:</strong>{{ item.product.category }}</p><small>{{ item.product.price }}</small>
-				                                    <p><strong>Quantity</strong>{{ item.quantity }}</p>
+				                                <div class="ps-product__content"><a class="ps-product__remove" href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a>
+				                                <a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a><br />
+				                                    <span><strong>Quantity: </strong>{{ item.quantity }}</span><br />
+				                                    <pspan><strong>Price: </strong>{{ item.product.price }}</span><br />
+				                                    <span><strong>Shipping Charge: </strong>{{ item.total_shipping_charge }}</span><br /><br />
 				                                </div>
 				                            </div>
 				                          {% endfor %}
@@ -276,9 +266,12 @@
                 	{% if product_quantitys %}
                            {% for item in product_quantitys %}
                     <div class="ps-product--cart-mobile">
-                        <div class="ps-product__thumbnail"><a href="#"><img src="{{ item.image_1.url }}" alt=""></a></div>
-                        <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">{{ item.image_1.url }}</a>
-                            <p><strong>Category</strong>{{ item.category }}</p><small>{{ item.price }}</small>
+                        <div class="ps-product__thumbnail"><a href="#"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
+                        <div class="ps-product__content"><a class="ps-product__remove" href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a>
+                        <a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a><br />
+				        <span><strong>Quantity: </strong>{{ item.quantity }}</span><br />
+				        <pspan><strong>Price: </strong>{{ item.product.price }}</span><br />
+				      	<span><strong>Shipping Charge: </strong>{{ item.total_shipping_charge }}</span><br /><br />
                         </div>
                     </div>
                    {% endfor %}
@@ -363,8 +356,8 @@
                     <h4 class="widget-title">Contact us</h4>
                     <div class="widget_content">
                         <p>Call us 24/7</p>
-                        <h3>1800 97 97 69</h3>
-                        <p>502 New Design Str, Melbourne, Australia <br><a href="mailto:contact@martfury.co">contact@martfury.co</a></p>
+                        <h3>+234 123 456 78</h3>
+                        <p>Idu Karmo Abuja<br><a href="mailto:info@fratishop.com">info@fratishop.com</a></p>
                         <ul class="ps-list--social">
                             <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
@@ -380,25 +373,25 @@
                         <li><a href="#">Term & Condition</a></li>
                         <li><a href="#">Shipping</a></li>
                         <li><a href="#">Return</a></li>
-                        <li><a href="faqs.html">FAQs</a></li>
+                        <li><a href="#">FAQs</a></li>
                     </ul>
                 </aside>
                 <aside class="widget widget_footer">
                     <h4 class="widget-title">Company</h4>
                     <ul class="ps-list--link">
-                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="#">About Us</a></li>
                         <li><a href="#">Affilate</a></li>
                         <li><a href="#">Career</a></li>
-                        <li><a href="contact-us.html">Contact</a></li>
+                        <li><a href="#">Contact</a></li>
                     </ul>
                 </aside>
                 <aside class="widget widget_footer">
-                    <h4 class="widget-title">Bussiness</h4>
+                    <h4 class="widget-title">Menu</h4>
                     <ul class="ps-list--link">
-                        <li><a href="#">Our Press</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="my-account.html">My account</a></li>
-                        <li><a href="shop-default.html">Shop</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'shop' %}">Shop</a></li>
+                        <li><a href="{% url 'cart' request.user.id %}">My Cart</a></li>
+                        <li><a href="{% url 'checkout' %}">Checkout</a></li>
                     </ul>
                 </aside>
             </div>
@@ -480,22 +473,25 @@
             </form>
         </div>
     </div>
-    <div class="modal fade" id="product-quickview" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-hidden="true">
+    	{% for item in all_products %}
+    	<div id="product-quickview">
+    <div class="modal fade" id="{{ item.slug }}" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content"><span class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
                 <article class="ps-product--detail ps-product--fullwidth ps-product--quickview">
                     <div class="ps-product__header">
                         <div class="ps-product__thumbnail" data-vertical="false">
                             <div class="ps-product__images" data-arrow="true">
-                                <div class="item"><img src="img/products/detail/fullwidth/1.jpg" alt=""></div>
-                                <div class="item"><img src="img/products/detail/fullwidth/2.jpg" alt=""></div>
-                                <div class="item"><img src="img/products/detail/fullwidth/3.jpg" alt=""></div>
+                                <div class="item"><img src="{{ item.image_1.url }}" alt=""></div>
+                                <div class="item"><img src="{{ item.image_2.url }}" alt=""></div>
+                                <div class="item"><img src="{{ item.image_3.url }}" alt=""></div>
+                                <div class="item"><img src="{{ item.image_4.url }}" alt=""></div>
                             </div>
                         </div>
                         <div class="ps-product__info">
-                            <h1>Marshall Kilburn Portable Wireless Speaker</h1>
+                            <h1>{{ item.name }}</h1>
                             <div class="ps-product__meta">
-                                <p>Brand:<a href="shop-default.html">Sony</a></p>
+                                <p>Category: <a href="#">{{ item.category }}</a></p>
                                 <div class="ps-product__rating">
                                     <select class="ps-rating" data-read-only="true">
                                         <option value="1">1</option>
@@ -506,26 +502,28 @@
                                     </select><span>(1 review)</span>
                                 </div>
                             </div>
-                            <h4 class="ps-product__price">$36.78 – $56.99</h4>
+                            <h4 class="ps-product__price">Price: {{ item.price }}</h4>
                             <div class="ps-product__desc">
-                                <p>Sold By:<a href="shop-default.html"><strong> Go Pro</strong></a></p>
+                                <p><a href="#"><strong>Details</strong></a></p>
                                 <ul class="ps-list--dot">
-                                    <li> Unrestrained and portable active stereo speaker</li>
-                                    <li> Free from the confines of wires and chords</li>
-                                    <li> 20 hours of portable capabilities</li>
-                                    <li> Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li>
-                                    <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
+                                    <li>{{ item.description }}</li>
+                                    <li>{{ item.specification }}</li>
                                 </ul>
                             </div>
-                            <div class="ps-product__shopping"><a class="ps-btn ps-btn--black" href="#">Add to cart</a><a class="ps-btn" href="#">Buy Now</a>
+                            <div class="ps-product__shopping"><a class="ps-btn ps-btn--black" href="{% url 'add_product_to_cart' item.slug %}">Add to cart</a><a class="ps-btn" href="{% url 'cart' request.user.id %}">Buy Now</a>
                                 <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
                             </div>
                         </div>
                     </div>
                 </article>
+                	
+                
+                
             </div>
         </div>
     </div>
+     </div>
+    {% endfor %}
 
     <script src="{% static 'main/plugins/jquery.min.js' %}"></script>
     <script src="{% static 'main/plugins/nouislider/nouislider.min.js' %}"></script>

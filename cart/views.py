@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from cart.models import CartProductQuantityConnector, Cart
 from product.models import Product, ProductQuantity, Quantity
+from shipping.views import GetDistance
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
@@ -17,14 +18,21 @@ def AddProductCartView(request, slug):
 		
 	cart = get_object_or_404(Cart, user__pk=user_id)
 	product = get_object_or_404(Product, slug=slug)
-		
-	product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity)
-	product_quantity.save()
-		
-	cp = CartProductQuantityConnector(cart=cart, product_quantity=product_quantity, pub_date=pub_date)
-	cp.save()
 	
-	return HttpResponseRedirect(reverse("category", args=(product.category,)))
+	#code for checking if the customer orders more than the available quantity
+	if product.quantity < 1:
+		return HttpResponse("Sorry, There are not enough amout of this product.")
+	
+	else:
+		distance = GetDistance()
+		total_shipping_charge = product.shipping_charge * distance
+		product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity, total_shipping_charge=total_shipping_charge)
+		product_quantity.save()
+		
+		cp = CartProductQuantityConnector(cart=cart, product_quantity=product_quantity, pub_date=pub_date)
+		cp.save()
+	
+		return HttpResponseRedirect(reverse("category", args=(product.category,)))
 	#pass
 	#return HttpResponse(slug)
 	#if request.user.is_active:
@@ -53,9 +61,14 @@ def CartView(request, user_id):
 	total_price = 0
 	total_quantity = 0
 	for item in product_quantitys:
-		total_price += (item.product.price * int(str(item.quantity)))
+		qty = int(str(item.quantity))
+		total_price += (item.product.price * qty) + (item.total_shipping_charge * qty)
+		#add shipping charge 
+		#
+		#
 	
-	context = {"total_price": total_price, "product_quantitys": product_quantitys, "cart": cart}
+	section_two = Product.objects.all()[:6]
+	context = {"total_price": total_price, "product_quantitys": product_quantitys, "cart": cart, "section_two": section_two}
 	return render(request, 'cart/cart.html', context)
 	
 	

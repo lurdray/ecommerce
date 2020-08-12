@@ -34,7 +34,11 @@
 				                                <td>{{ item.name }}</td>
 				                                <td>{{ item.price }}</td>
 				                                <td>{{ item.category }}</td>
-				                                <td>{{ item.quantity }}</td>
+				                                {% if item.quantity <= item.threshold %}
+				                                	<td style="background-color: red; color: white;">{{ item.quantity }}</td>
+				                                {% else %}
+				                                	<td>{{ item.quantity }}</td>
+				                                {% endif %}
 				                                <td>{{ item.rating }}</td>
 				                            </tr>
 				                         {% endfor %}
