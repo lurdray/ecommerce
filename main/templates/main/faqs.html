@@ -1,7 +1,46 @@
 {% extends 'main/base.html' %}
-{% load staticfiles %}
+{% load static %}
   
+{% block search_content %}
+    <div class="ps-panel--sidebar" id="search-sidebar">
+        <div class="ps-panel__header">
+            <form class="ps-form--search-mobile" method="post">
+                {% csrf_token %}
+                <div class="form-group--nest">
+                    <input name="query" class="form-control" type="text" placeholder="Search something...">
+                    <button><i class="icon-magnifier"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="navigation__content"></div>
+    </div>
+{% endblock search_content %}
 
+{% block search_contentt %}
+
+            
+                <div class="header__center">
+                    <form class="ps-form--quick-search" method="post">
+                        {% csrf_token %}
+                        <div class="form-group--icon"><i class="icon-chevron-down"></i>
+                            <select name="categories" class="form-control">
+                                <option value="ALL" selected="selected">ALL</option>
+                                <option class="level-0" value="BEDROOM">BEDROOM</option>
+                                <option class="level-0" value="KITCHEN & DINNING">KITCHEN & DINNING</option>
+                                <option class="level-0" value="KIDDIES">KIDDIES</option>
+                                <option class="level-0" value="LIVING ROOM">LIVING ROOM</option>
+                                <option class="level-1" value="OFFICE">OFFICE</option>
+                                <option class="level-1" value="ACCESSORIES">ACCESSORIES</option>
+                            </select>
+                        </div>
+                        <input name="query" class="form-control" type="text" placeholder="I'm shopping for...">
+                        <button style="background-color: #5a6981">Search</button>
+                    </form>
+                </div>
+
+
+
+{% endblock search_contentt %}
 
 {% block content %}
 
@@ -26,7 +65,7 @@
                             <tbody>
                                 <tr>
                                     <td class="heading" rowspan="3">
-                                        <h4>SHIPPING</h4>
+                                        <h4 style="color: #6f448b">SHIPPING</h4>
                                     </td>
                                     <td class="question"> What Shipping Methods Are Available?</td>
                                     <td>Ex Portland Pitchfork irure mustache. Eutra fap before they sold out literally. Aliquip ugh bicycle rights actually mlkshk, seitan squid craft beer tempor.</td>
@@ -41,7 +80,7 @@
                                 </tr>
                                 <tr>
                                     <td class="heading" rowspan="2">
-                                        <h4>PAYMENT</h4>
+                                        <h4 style="color: #6f448b">PAYMENT</h4>
                                     </td>
                                     <td class="question"> What Payment Methods Are Accepted?</td>
                                     <td>Fashion axe DIY jean shorts, swag kale chips meh polaroid kogi butcher Wes Anderson chambray next level semiotics gentrify yr. Voluptate photo booth fugiat Vice. Austin sed Williamsburg, ea labore raw denim voluptate cred proident mixtape excepteur mustache. Twee chia photo booth readymade food truck, hoodie roof party swag keytar PBR DIY.</td>
@@ -52,7 +91,7 @@
                                 </tr>
                                 <tr>
                                     <td class="heading" rowspan="5">
-                                        <h4>Order & Retunrs</h4>
+                                        <h4 style="color: #6f448b">Order & Retunrs</h4>
                                     </td>
                                     <td class="question"> How do I place an Order?</td>
                                     <td>Keytar cray slow-carb, Godard banh mi salvia pour-over. Slow-carb Odd Future seitan normcore. Master cleanse American Apparel gentrify flexitarian beard slow-carb next level. Raw denim polaroid paleo farm-to-table, put a bird on it lo-fi tattooed Wes Anderson Pinterest letterpress. Fingerstache McSweeney’s pour-over, letterpress Schlitz photo booth master cleanse bespoke hashtag chillwave gentrify.</td>
@@ -77,7 +116,7 @@
         </div>
         <div class="ps-call-to-action">
             <div class="container">
-                <h3>We’re Here to Help !<a href="#"> Contact us</a></h3>
+                <h3>We’re Here to Help !<a href="#" style="color: #6f448b"> Contact us</a></h3>
             </div>
         </div>
     </div>
@@ -103,72 +142,7 @@
             </form>
         </div>
     </div>
-    <footer class="ps-footer">
-        <div class="ps-container">
-            <div class="ps-footer__widgets">
-                <aside class="widget widget_footer widget_contact-us">
-                    <h4 class="widget-title">Contact us</h4>
-                    <div class="widget_content">
-                        <p>Call us 24/7</p>
-                        <h3>1800 97 97 69</h3>
-                        <p>502 New Design Str, Melbourne, Australia <br><a href="mailto:contact@martfury.co">contact@martfury.co</a></p>
-                        <ul class="ps-list--social">
-                            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </aside>
-                <aside class="widget widget_footer">
-                    <h4 class="widget-title">Quick links</h4>
-                    <ul class="ps-list--link">
-                        <li><a href="#">Policy</a></li>
-                        <li><a href="#">Term & Condition</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Return</a></li>
-                        <li><a href="faqs.html">FAQs</a></li>
-                    </ul>
-                </aside>
-                <aside class="widget widget_footer">
-                    <h4 class="widget-title">Company</h4>
-                    <ul class="ps-list--link">
-                        <li><a href="about-us.html">About Us</a></li>
-                        <li><a href="#">Affilate</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="contact-us.html">Contact</a></li>
-                    </ul>
-                </aside>
-                <aside class="widget widget_footer">
-                    <h4 class="widget-title">Bussiness</h4>
-                    <ul class="ps-list--link">
-                        <li><a href="#">Our Press</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="my-account.html">My account</a></li>
-                        <li><a href="shop-default.html">Shop</a></li>
-                    </ul>
-                </aside>
-            </div>
-            <div class="ps-footer__links">
-                <p><strong>Consumer Electric:</strong><a href="#">Air Conditioners</a><a href="#">Audios &amp; Theaters</a><a href="#">Car Electronics</a><a href="#">Office Electronics</a><a href="#">TV Televisions</a><a href="#">Washing Machines</a>
-                </p>
-                <p><strong>Clothing &amp; Apparel:</strong><a href="#">Printers</a><a href="#">Projectors</a><a href="#">Scanners</a><a href="#">Store &amp; Business</a><a href="#">4K Ultra HD TVs</a><a href="#">LED TVs</a><a href="#">OLED TVs</a>
-                </p>
-                <p><strong>Home, Garden &amp; Kitchen:</strong><a href="#">Cookware</a><a href="#">Decoration</a><a href="#">Furniture</a><a href="#">Garden Tools</a><a href="#">Garden Equipments</a><a href="#">Powers And Hand Tools</a><a href="#">Utensil &amp; Gadget</a>
-                </p>
-                <p><strong>Health &amp; Beauty:</strong><a href="#">Hair Care</a><a href="#">Decoration</a><a href="#">Hair Care</a><a href="#">Makeup</a><a href="#">Body Shower</a><a href="#">Skin Care</a><a href="#">Cologine</a><a href="#">Perfume</a>
-                </p>
-                <p><strong>Jewelry &amp; Watches:</strong><a href="#">Necklace</a><a href="#">Pendant</a><a href="#">Diamond Ring</a><a href="#">Sliver Earing</a><a href="#">Leather Watcher</a><a href="#">Gucci</a>
-                </p>
-                <p><strong>Computer &amp; Technologies:</strong><a href="#">Desktop PC</a><a href="#">Laptop</a><a href="#">Smartphones</a><a href="#">Tablet</a><a href="#">Game Controller</a><a href="#">Audio &amp; Video</a><a href="#">Wireless Speaker</a><a href="#">Done</a>
-                </p>
-            </div>
-            <div class="ps-footer__copyright">
-                <p>© 2018 Martfury. All Rights Reserved</p>
-                <p><span>We Using Safe Payment For:</span><a href="#"><img src="img/payment-method/1.jpg" alt=""></a><a href="#"><img src="img/payment-method/2.jpg" alt=""></a><a href="#"><img src="img/payment-method/3.jpg" alt=""></a><a href="#"><img src="img/payment-method/4.jpg" alt=""></a><a href="#"><img src="img/payment-method/5.jpg" alt=""></a></p>
-            </div>
-        </div>
-    </footer>
+    
     <div id="back2top"><i class="pe-7s-angle-up"></i></div>
     <div class="ps-site-overlay"></div>
     <div id="loader-wrapper">

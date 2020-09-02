@@ -1,7 +1,29 @@
 {% extends 'main/base.html' %}
-{% load staticfiles %}
+{% load static %}
   
 
+{% block search_contentt %}
+
+            
+                <nav class="navigation" style="background-color: #f4f4f4">
+            <div class="ps-container">
+                <div class="navigation__left">
+                    <div class="menu--product-categories">
+                        <h4 style="margin: 25px">Details for - {{ product }}</h4>
+                        
+                    </div>
+                </div>
+                <div class="navigation__right">
+                    <ul class="menu">
+                       <button class="ps-btn">Checkout</button>
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+{% endblock search_contentt %}
 
 {% block content %}
 
@@ -50,9 +72,9 @@
                                         <form method="post">
                                 		{% csrf_token %}
 		                                    <div class="number">
-												<span class="minus">-</span>
+												<span class="minus"><div style="margin-top: -10px">-</div></span>
 												<input name="quantity" type="text" value="1"/>
-												<span class="plus">+</span>
+												<span class="plus"><div style="margin-top: -10px">+</div></span>
 											</div>
 											<br />
 											<button type="submit" class="ps-btn ps-btn--black">Add to cart</a>
@@ -65,9 +87,17 @@
                                 <div class="ps-product__specification">
                                     <p><strong>product id</strong>{{ product.id }}</p>
                                     <p class="categories"><strong>Only {{ product.quantity }}</strong> are left, Hurray up!</p>
-                                    <p class="tags"><strong> Tags</strong><a href="#">sofa</a>,<a href="#">technologies</a>,<a href="#">wireless</a></p>
+                                    
                                 </div>
-                                <div class="ps-product__sharing"><a class="facebook" href="#"><i class="fa fa-facebook"></i></a><a class="twitter" href="#"><i class="fa fa-twitter"></i></a><a class="google" href="#"><i class="fa fa-google-plus"></i></a><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></div>
+                                <div class="ps-product__sharing">
+                                	
+		                            <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.fratishop.com{{ request.path }}"><i class="fa fa-facebook"></i></a>
+		                            <a class="twitter" href="https://twitter.com/intent/tweet?text=https://www.fratishop.com{{ request.path }}"><i class="fa fa-twitter"></i></a>
+		                            <a class="google" href="#"><i class="fa fa-google-plus"></i></a>
+		                            <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+		                            <a class="instagram" href="#"><i class="fa fa-instagram"></i></a>
+		                            <a class="whatsapp" href="whatsapp://send?text=https://www.fratishop.com{{ request.path }}" data-action="share/whatsapp/share"><i class="fa fa-whatsapp"></i></a>
+                                </div>
                             </div>
                         </div>
                         <div class="ps-product__content ps-tab-root">
@@ -76,7 +106,8 @@
                                     <li><a href="#tab-2">Specification</a></li>
                                     <li><a href="#tab-3">Reviews</a></li>
                                     <li><a href="#tab-4">Images</a></li>
-                                    <li><a href="#tab-5">More</a></li>
+                                    <li><a href="#tab-5">Installation Video</a></li>
+                                    <li><a href="#tab-6">More</a></li>
                                 </ul>
                             <div class="ps-tabs">
                                 <div class="ps-tab active" id="tab-1">
@@ -92,6 +123,7 @@
                                     </div>
                                 </div>
                                 <div class="ps-tab" id="tab-3">
+                                	<div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 ">
                                     <div class="table-responsive">
                                         <table class="table table-bordered ps-table ps-table--specification">
                                             <tbody>
@@ -109,7 +141,33 @@
 													{% endif %}
                                                 </tbody>
                                         </table>
+                                        <hr>
                                     </div>
+                                            <form class="ps-form--review" method="post">
+                                            	{% csrf_token %}
+                                                <h4>Submit Your Review</h4>
+                                                <p>Your email address will not be published. Required fields are marked<sup>*</sup></p>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="6" placeholder="Write your review here" name="review" required="required"></textarea>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
+                                                        <div class="form-group">
+                                                            <input style="text-align: left" class="form-control" type="text" placeholder="Your Name" name="name" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
+                                                        <div class="form-group">
+                                                            <input style="text-align: left" class="form-control" type="email" placeholder="Your Email" name="email" required="required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group submit">
+                                                    <button class="ps-btn">Submit Review</button>
+                                                </div>
+                                            </form>
+                                            
+                                        </div>
                                 </div>
                                 <div class="ps-tab" id="tab-4">
                                     <div class="row">
@@ -128,8 +186,16 @@
                                         </div>
                                 </div>
                                 
-                                
                                 <div class="ps-tab" id="tab-5">
+                                    <div class="row">
+                                        	<div class="col-md-3">
+                                        		<iframe width="100%" height="400px" src="{{ product.video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        	</div>
+                                        </div>
+                                </div>
+                                
+                                
+                                <div class="ps-tab" id="tab-6">
                                 	<h4>Name:</h4>
                                         <p>{{ product.name }}</p><br />
                                         <h4>Category:</h4>
@@ -148,7 +214,7 @@
                 </div>
                 <div class="ps-page__right">
                     <aside class="widget widget_product widget_features">
-                        <p><i class="icon-network"></i> Shipping worldwide</p>
+                        <p><i class="icon-network"></i> Shipping nationwide</p>
                         <p><i class="icon-3d-rotate"></i> Free 7-day return if eligible, so easy</p>
                         <p><i class="icon-receipt"></i> Supplier give bills for this product.</p>
                         <p><i class="icon-credit-card"></i> Pay online or when receiving goods</p>
@@ -163,7 +229,7 @@
                         		{% for item in section_one %}
 				                    <div class="ps-product">
 				                        <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
-				                            <div class="ps-product__badge">-37%</div>
+				                            <div class="ps-product__badge" style="background-color: {{ item.tag_title_color }}">{{ item.tag_title }}</div>
 				                            <ul class="ps-product__actions">
 				                                <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
 				                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
@@ -212,7 +278,7 @@
 				                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
 				                    <div class="ps-product">
 				                        <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
-				                            <div class="ps-product__badge hot">hot</div>
+				                            <div class="ps-product__badge" style="background-color: {{ item.tag_title_color }}">{{ item.tag_title }}</div>
 				                            <ul class="ps-product__actions">
 						                        <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
 						                        <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
@@ -261,6 +327,7 @@
                     		{% for item in section_three %}
 				                <div class="ps-product">
 				                    <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
+				                    	<div class="ps-product__badge" style="background-color: {{ item.tag_title_color }}">{{ item.tag_title }}</div>
 				                        <ul class="ps-product__actions">
 				                            <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
 				                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>

@@ -2,10 +2,13 @@ from django.shortcuts import render
 from cart.models import CartProductQuantityConnector, Cart
 from product.models import Product, ProductQuantity, Quantity
 from shipping.views import GetDistance
+from django.contrib import messages 
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 
 # Create your views here.
 def AddProductCartView(request, slug):
@@ -26,11 +29,13 @@ def AddProductCartView(request, slug):
 	else:
 		distance = GetDistance()
 		total_shipping_charge = product.shipping_charge * distance
+
 		product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity, total_shipping_charge=total_shipping_charge)
 		product_quantity.save()
 		
 		cp = CartProductQuantityConnector(cart=cart, product_quantity=product_quantity, pub_date=pub_date)
 		cp.save()
+		messages.success(request, "Product Successfully Added to Cart")
 	
 		return HttpResponseRedirect(reverse("category", args=(product.category,)))
 	#pass
@@ -56,20 +61,36 @@ def AddProductCartView(request, slug):
 	
 	
 def CartView(request, user_id):
-	cart = get_object_or_404(Cart, user__pk=request.user.id)
-	product_quantitys = cart.product_quantitys.all()
-	total_price = 0
-	total_quantity = 0
-	for item in product_quantitys:
-		qty = int(str(item.quantity))
-		total_price += (item.product.price * qty) + (item.total_shipping_charge * qty)
-		#add shipping charge 
-		#
-		#
+	if request.method == "POST":
+		query = request.POST.get('query')
+		category = request.POST.get('category')
+		products = Product.objects.filter(name__icontains=query, category=category)
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys, 'products': products}
+		return render(request, 'product/all_products.html', context)
+		
+	else:
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			qty = int(str(item.quantity))
+			total_price += (item.product.price * qty) + (item.total_shipping_charge * qty)
+			#add shipping charge 
+			#
+			#
 	
-	section_two = Product.objects.all()[:6]
-	context = {"total_price": total_price, "product_quantitys": product_quantitys, "cart": cart, "section_two": section_two}
-	return render(request, 'cart/cart.html', context)
+		section_two = Product.objects.all()[:6]
+		context = {"total_price": total_price, "product_quantitys": product_quantitys, "cart": cart, "section_two": section_two}
+		return render(request, 'cart/cart.html', context)
 	
 	
 ############################################################################

@@ -1,5 +1,5 @@
 {% extends 'admin_app/base.html' %}
-{% load staticfiles %}
+{% load static %}
   
 
 
@@ -27,6 +27,18 @@
 												            <div class="form-group">
 												                <label>Name</label>
 												                <input name="name" class="form-control" type="text" placeholder="Enter Product Name">
+												            </div>
+												            <div class="form-group">
+												                <label>Tag Title</label>
+												                <input name="tag_title" class="form-control" type="text" placeholder="Enter Product Tag Title.   e.g: Sale, -30%,  Limited">
+												            </div>
+												            <div class="form-group">
+												                <label>Tag Title Color</label>
+												                <input name="tag_title_color" class="form-control" type="text" placeholder="Enter Tag Title Background Color.   e.g: red, green, black">
+												            </div>
+												            <div class="form-group">
+												                <label>Section</label>
+												                <input name="section" class="form-control" type="text" placeholder="Enter position section for product">
 												            </div>
 												            <div class="row">
 												                <div class="col-sm-6">
@@ -95,6 +107,12 @@
 												                    <div class="form-group">
 												                        <label>Dimension</label>
 												                        <input name="dimension" class="form-control" type="text" placeholder="Product Dimension.">
+												                    </div>
+												                </div>
+												                <div class="col-sm-6">
+												                    <div class="form-group">
+												                        <label>Video Link</label>
+												                        <input name="video" class="form-control" type="text" placeholder="Product Video.">
 												                    </div>
 												                </div>
 												                <div class="col-sm-6">

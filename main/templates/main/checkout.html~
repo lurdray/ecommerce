@@ -1,5 +1,5 @@
  {% extends 'main/base.html' %}
-{% load staticfiles %}
+{% load static %}
   
 
 
@@ -21,21 +21,21 @@
                                         <label>Full Name<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
-                                            <input name="full_name" class="form-control" type="text" required="required">
+                                            <input style="text-align: left" name="full_name" class="form-control" type="text" required="required">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Company Name
                                         </label>
                                         <div class="form-group__content">
-                                            <input name="company_name" class="form-control" type="text">
+                                            <input style="text-align: left" name="company_name" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Email Address<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
-                                            <input name="email" class="form-control" type="email" required="required">
+                                            <input style="text-align: left" name="email" class="form-control" type="email" required="required">
                                         </div>
                                     </div>
                                     
@@ -53,21 +53,21 @@
                                         <label>Country
                                         </label>
                                         <div class="form-group__content">
-                                            <input name="country" class="form-control" type="text" value="Nigeria" required="required">
+                                            <input style="text-align: left" name="country" class="form-control" type="text" value="Nigeria" required="required">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Phone<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
-                                            <input name="phone" class="form-control" type="text" required="required">
+                                            <input style="text-align: left" name="phone" class="form-control" type="text" required="required">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Address<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
-                                            <input name="address" class="form-control" type="text" required="required">
+                                            <input style="text-align: left" name="address" class="form-control" type="text" required="required">
                                         </div>
                                     </div> 
                                     <h3 class="mt-40"> Addition information</h3>
@@ -95,8 +95,8 @@
 				                                                    <td>Name:<a href="#"> {{ item.product.name }}</a>
 				                                                        <p>Quantity:<strong> {{ item.quantity }}</strong></p>
 				                                                    </td>
-				                                                    <td>Price: {{ item.product.price }}
-				                                                    	<p>Shipping Charge:<strong> {{ item.total_shipping_charge }}</strong></p>
+				                                                    <td>Price: ₦{{ item.product.price }}
+				                                                    	<p>Shipping Charge:<strong> ₦{{ item.total_shipping_charge }}</strong></p>
 				                                                    </td>
 				                                                </tr>
 				                                              {% endfor %}
@@ -110,7 +110,7 @@
 				                                              {% endif %}
                                                     </tbody>
                                                 </table>
-                                                <h3>Total <span>{{ total_price }}</h3>
+                                                <h3>Total <span>₦{{ total_price }}</span></h3>
                                             </div>
                                         </div><button class="ps-btn ps-btn--fullwidth">Proceed to checkout</button>
                                     </div>

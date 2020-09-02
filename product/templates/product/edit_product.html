@@ -1,5 +1,5 @@
 {% extends 'admin_app/base.html' %}
-{% load staticfiles %}
+{% load static %}
   
 
 
@@ -27,6 +27,18 @@
 												            <div class="form-group">
 												                <label>Name</label>
 												                <input name="name" class="form-control" type="text" value="{{ product.name }}">
+												            </div>
+												            <div class="form-group">
+												                <label>Tag Title</label>
+												                <input name="tag_title" class="form-control" type="text" value="{{ product.tag_title }}">
+												            </div>
+												            <div class="form-group">
+												                <label>Tag Title Color</label>
+												                <input name="tag_title_color" class="form-control" type="text" value="{{ product.tag_title_color }}">
+												            </div>
+												            <div class="form-group">
+												                <label>Section</label>
+												                <input name="section" class="form-control" type="text" value="{{ product.section }}">
 												            </div>
 												            <div class="row">
 												                <div class="col-sm-6">
@@ -69,6 +81,12 @@
 												                   <div class="form-group">
 												                        <label>Delivery Info</label>
 												                        <textarea name="delivery_info" rows="9" placeholder="Product Specification." class="form-control">{{ product.delivery_info }}</textarea>
+												                    </div>
+												                </div>
+												                <div class="col-sm-6">
+												                   <div class="form-group">
+												                        <label>Video Link</label>
+												                        <textarea name="video" rows="9" placeholder="Product Installation." class="form-control">{{ product.video }}</textarea>
 												                    </div>
 												                </div>
 												            </div>

@@ -1,0 +1,64 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+  
+
+
+{% block content %}
+
+
+        <div class="container">
+
+            <div class="ps-section__content">
+                <div class="ps-block--vendor-dashboard">
+                    <div class="ps-block__content">
+                        <div class="table-responsive">
+                            <table class="table ps-table ps-table--vendor">
+                                <thead>
+                                    <tr>
+                                        <th>date</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Review</th>
+                                        <th>Status</th>
+                                         <th></th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                	{% if reviews %}
+                                		{% for product in reviews %}
+				                            <tr>
+				                                <td>{{ product.pub_date }}</td>
+				                                <td><a href="#">{{ product.name }}.</a></td>
+				                                <td>{{ product.email }}</td>
+				                                <td>{{ product.review }}</td>
+				                                <td>{{ product.status }}</td>
+				                                <td><a href="#">More</a></td>
+				                            </tr>
+				                          {% endfor %}
+				                          
+				                       {% else %}
+				                       		 <tr>
+				                                <td>Sorry, Nothing Yet!</td>
+				                                 <td>Sorry, Nothing Yet!</td>
+				                                  <td>Sorry, Nothing Yet!</td>
+				                                   <td>Sorry, Nothing Yet!</td>
+				                                    <td>Sorry, Nothing Yet!</td>
+				                                     <td>Sorry, Nothing Yet!</td>
+				                            </tr>
+				                        {% endif %}
+                                    <tr>
+                                        <td colspan="3"><strong>Total</strong></td>
+                                        <td><strong>124 Sale</strong></td>
+                                        <td colspan="2"><strong>$12.104.725</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+{% endblock %}

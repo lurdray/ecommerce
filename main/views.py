@@ -1,9 +1,12 @@
 import random
 import string
+from django.db.models import Max, Min
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render
 from product.models import Product
 from customer.models import Customer
+from main.models import Message
+from django.contrib import messages
 from cart.models import Cart
 from order.models import Order
 from django.utils import timezone
@@ -22,8 +25,18 @@ def IndexView(request):
 	if request.method == "POST":
 		query = request.POST.get('query')
 		category = request.POST.get('category')
-		products = Product.objects.filter(name__icontains=query, category=category)
-		context = {'products': products}
+		if category == None:
+			category = "ALL"
+		products = Product.objects.filter(name__icontains=query, category=str(category))
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+
+		context = {"total_price": total_price, "product_quantitys": product_quantitys, 'products': products}
 		return render(request, 'product/all_products.html', context)
 		
 		
@@ -62,12 +75,64 @@ def IndexView(request):
 	
 		product = Product.objects.all()
 		all_products = Product.objects.all()
-		section_one = Product.objects.all()[:6]
-		section_two = Product.objects.all()[:6]
-		section_three = Product.objects.all()[:6]
-		section_four = Product.objects.all()[:6]
-		section_five = Product.objects.all()[:6]
+		section_onek = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
+		section_twok = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
+		section_threek = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
+		section_fourk = Product.objects.filter(section="section_four").order_by("-pub_date")[:10]
+		section_fivek = Product.objects.filter(section="section_five").order_by("-pub_date")[:10]
 		
+		if section_onek:
+			try:
+				section_one = set()
+				for i in range(section_onek.count()):
+					section_one.add(random.choice(section_onek))
+			except:
+				pass
+		else:
+			section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
+				
+		if section_twok:
+			try:
+				section_two = set()
+				for i in range(section_twok.count()):
+					section_two.add(random.choice(section_twok))
+			except:
+				pass
+		else:
+			section_two = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
+			
+		if section_threek:
+			try:
+				section_three = set()
+				for i in range(section_threek.count()):
+					section_three.add(random.choice(section_threek))
+			except:
+				pass
+		else:
+			section_three = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
+			
+			
+		if section_fourk:
+			try:
+				section_four = set()
+				for i in range(section_fourk.count()):
+					section_one.add(random.choice(section_onek))
+			except:
+				pass
+		else:
+			section_four = Product.objects.filter(section="section_four").order_by("-pub_date")[:10]
+			
+		if section_fivek:
+			try:
+				section_five = set()
+				for i in range(section_fivek.count()):
+					section_five.add(random.choice(section_fivek))
+			except:
+				pass
+		else:
+			section_five = Product.objects.filter(section="section_ofive").order_by("-pub_date")[:10]
+
+			
 		bedrooms = Product.objects.filter(category="BEDROOM")[:10]
 		kitchens = Product.objects.filter(category="KITCHEN & DINNING")[:10]
 		living_rooms = Product.objects.filter(category="LIVING ROOM")[:10]
@@ -88,6 +153,31 @@ def CategoryView(request, category):
 	except:
 		category = "All"
 	page_title = "%s Category" % (category)
+	
+	if request.user.is_active:
+		user = request.user
+		user = User.objects.get(id=user.id)
+		user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+	else:
+			#return HttpResponse("i reached here ooo!")
+		fake_username = "%s" % (ray_randomiser())
+		fake_password = "%s" % (ray_randomiser())
+		user = User.objects.create(username=fake_username)
+		user.save()
+		user.set_password(fake_password)
+		user.save()
+		user_checker = authenticate(username=fake_username, password=fake_password)
+			
+		if user.is_active:
+			login(request, user_checker)
+		else:
+			pass
+
+		cart = Cart.objects.create(user=user, pub_date=timezone.now())
+		cart.user = user
+		cart.save()
 	
 	cart = get_object_or_404(Cart, user__pk=request.user.id)
 	product_quantitys = cart.product_quantitys.all()
@@ -158,10 +248,67 @@ def ShopView(request):
 		kiddies_section = Product.objects.filter(category="KIDDIES")
 		acessories_section = Product.objects.filter(category="ACESSORIES")
 	
-		section_one = Product.objects.all()[:6]
-		section_two = Product.objects.all()[:6]
-		section_three = Product.objects.all()[:6]
+		section_onek = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
+		section_twok = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
+		section_threek = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
+		
+		if section_onek:
+			try:
+				section_one = set()
+				for i in range(section_onek.count()):
+					section_one.add(random.choice(section_onek))
+			except:
+				pass
+		else:
+			section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
+				
+		if section_twok:
+			try:
+				section_two = set()
+				for i in range(section_twok.count()):
+					section_two.add(random.choice(section_twok))
+			except:
+				pass
+		else:
+			section_two = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
+			
+		if section_threek:
+			try:
+				section_three = set()
+				for i in range(section_threek.count()):
+					section_three.add(random.choice(section_threek))
+			except:
+				pass
+		else:
+			section_three = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
+
+		
 		all_products = Product.objects.all()
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
 	
 		cart = get_object_or_404(Cart, user__pk=request.user.id)
 		product_quantitys = cart.product_quantitys.all()
@@ -206,7 +353,7 @@ def CheckoutView(request):
 			total_price += (item.product.price * int(str(item.quantity)))
 			#total_quantity += int(str(item.quantity))
 		
-		
+		messages.success(request, "Dear " +full_name+ " your order was succesfully placed" )
 		cart.total_price = total_price
 		cart.save()
 		order = Order.objects.create(customer=customer, cart=cart,  pub_date=pub_date)
@@ -221,6 +368,31 @@ def CheckoutView(request):
 		return HttpResponseRedirect(reverse("checkout_confirm", args=(order.id,)))
 		
 	else:
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+			
 		cart = get_object_or_404(Cart, user__pk=request.user.id)
 		product_quantitys = cart.product_quantitys.all()
 		total_price = 0
@@ -231,7 +403,7 @@ def CheckoutView(request):
 		if total_price == 0:
 			return HttpResponseRedirect(reverse("shop"))
 		elif total_price > 0:
-			context = {"total_price": total_price, "cart": cart, "product_quantitys": product_quantitys, }
+			context = {"total_price": total_price, "cart": cart, "product_quantitys": product_quantitys}
 			return render(request, 'main/checkout.html', context)
 		else:
 			return HttpResponseRedirect(reverse("shop"))
@@ -267,12 +439,564 @@ def ConfirmOrderView(request, order_id):
 		context = {}
 		return render(request, 'main/confirm_order.html', context)
 	
-		
+	
 		 
 def FaqsView(request):
-	context = {}
-	return render(request, 'main/faqs.html', context)
+	if request.method == "POST":
+		query = request.POST.get('query')
+		category = request.POST.get('category')
+		products = Product.objects.filter(name__icontains=query, category=category)
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'product/all_products.html', context)
+		
+	else:
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+			
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'main/faqs.html', context)
 	
+
+def PrivacyView(request):
+	if request.method == "POST":
+		query = request.POST.get('query')
+		category = request.POST.get('category')
+		products = Product.objects.filter(name__icontains=query, category=category)
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'product/all_products.html', context)
+		
+	else:
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+			
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'main/privacy.html', context)
+	
+	
+def TermsConditionView(request):
+	if request.method == "POST":
+		query = request.POST.get('query')
+		category = request.POST.get('category')
+		products = Product.objects.filter(name__icontains=query, category=category)
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'product/all_products.html', context)
+		
+	else:
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+			
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'main/terms_condition.html', context)
+
+
+def AffiliateView(request):
+	if request.method == "POST":
+		query = request.POST.get('query')
+		category = request.POST.get('category')
+		products = Product.objects.filter(name__icontains=query, category=category)
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'product/all_products.html', context)
+		
+	else:
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+			
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'main/affiliate.html', context)
+	
+
+def CareerView(request):
+	if request.method == "POST":
+		query = request.POST.get('query')
+		category = request.POST.get('category')
+		products = Product.objects.filter(name__icontains=query, category=category)
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'product/all_products.html', context)
+		
+	else:	
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+			
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'main/career.html', context)
+	
+
+
+
+def ShippingView(request):
+	if request.method == "POST":
+		query = request.POST.get('query')
+		category = request.POST.get('category')
+		products = Product.objects.filter(name__icontains=query, category=category)
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+			
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'product/all_products.html', context)
+		
+	else:
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+			
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'main/shipping.html', context)
+	
+	
+	
+def ContactView(request):
+	if request.method == "POST":
+		full_name = request.POST.get("full_name")
+		email = request.POST.get("email")
+		message = request.POST.get("message")
+		
+		response = "Message Sent!, Thank you for reaching out!"
+
+		contact = Message.objects.create(full_name=full_name, email=email, message=message)
+		contact.save()
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"response": response, "total_price": total_price, "product_quantitys": product_quantitys}
+		
+		return render(request, 'main/contact.html', context)	
+		#return HttpResponseRedirect(reverse("contact"))
+		
+	else:
+		response = ""
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"response": response, "total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'main/contact.html', context)	
 	
 
 def RegisterLoginView(request):
@@ -288,5 +1012,79 @@ def UserLogoutView(request):
 	
 	
 def AboutView(request):
-	context = {}
-	return render(request, 'main/about.html', context)
+	if request.method == "POST":
+		query = request.POST.get('query')
+		category = request.POST.get('category')
+		products = Product.objects.filter(name__icontains=query, category=category)
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'product/all_products.html', context)
+		
+	else:
+		
+		if request.user.is_active:
+			user = request.user
+			user = User.objects.get(id=user.id)
+			user_checker = authenticate(username=user.username, password=user.password)
+			#pass
+			#return HttpResponse("issues ooo!")
+		else:
+			#return HttpResponse("i reached here ooo!")
+			fake_username = "%s" % (ray_randomiser())
+			fake_password = "%s" % (ray_randomiser())
+			user = User.objects.create(username=fake_username)
+			user.save()
+			user.set_password(fake_password)
+			user.save()
+			user_checker = authenticate(username=fake_username, password=fake_password)
+			
+			if user.is_active:
+				login(request, user_checker)
+			else:
+				pass
+
+			cart = Cart.objects.create(user=user, pub_date=timezone.now())
+			cart.user = user
+			cart.save()
+		
+		cart = get_object_or_404(Cart, user__pk=request.user.id)
+		product_quantitys = cart.product_quantitys.all()
+		total_price = 0
+		total_quantity = 0
+		for item in product_quantitys:
+			total_price += (item.product.price * int(str(item.quantity)))
+			
+		context = {"total_price": total_price, "product_quantitys": product_quantitys}
+		return render(request, 'main/about.html', context)

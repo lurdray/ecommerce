@@ -1,22 +1,59 @@
-<html lang="en">
-
-<head>
+{% extends 'main/base.html' %}
+{% load static %}
   
-  </head>
+{% block search_content %}
+    <div class="ps-panel--sidebar" id="search-sidebar">
+        <div class="ps-panel__header">
+            <form class="ps-form--search-mobile" method="post">
+                {% csrf_token %}
+                <div class="form-group--nest">
+                    <input name="query" class="form-control" type="text" placeholder="Search something...">
+                    <button><i class="icon-magnifier"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="navigation__content"></div>
+    </div>
+{% endblock search_content %}
 
-<body>
+{% block search_contentt %}
 
-  <main>
-    <section>
+            
+                <nav class="navigation" style="background-color: #f4f4f4">
+            <div class="ps-container">
+                <div class="navigation__left">
+                    <div class="menu--product-categories">
+                       
+                        
+                    </div>
+                </div>
+                <div class="navigation__right">
+                    <ul class="menu">
+                       <h4 style="margin: 25px">COMFIRM PAYMENT</h4>
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+{% endblock search_contentt %}
+
+{% block content %}
+
+<br><br>
       <div class="container text-center">
         <div class="row">
           
-          <div class="col-md-6 col-sm-12">
+          <div class="col-md-12 col-sm-12">
           <h4>Make Payment</h4>
           <hr>
+          <br><br>
           <form>
 			  <script src="https://js.paystack.co/v1/inline.js"></script>
-			  <button type="button" onclick="payWithPaystack()"> Pay </button> 
+			  <button type="button" onclick="payWithPaystack()" class="col-md-6 col-sm-12 ps-btn"> Pay </button> 
+        <p><br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor.</p>
 			</form>
 
 
@@ -25,11 +62,10 @@
           </div>
         </div>
       </div>
-    </section>
-    <br>
+      <br><br><br>
+    <hr>
     
-    
-  </main>
+
 
 
 <!-- place below the html form -->
@@ -62,8 +98,4 @@
   }
 </script>
 
-
-
-</body>
-
-</html>
+{% endblock %}

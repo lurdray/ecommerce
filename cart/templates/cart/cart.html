@@ -1,9 +1,57 @@
  {% extends 'main/base.html' %}
-{% load staticfiles %}
-  
+{% load static %}
+
+{% block search_content %}
+    <div class="ps-panel--sidebar" id="search-sidebar">
+        <div class="ps-panel__header">
+            <form class="ps-form--search-mobile" method="post">
+                {% csrf_token %}
+                <div class="form-group--nest">
+                    <input name="query" class="form-control" type="text" placeholder="Search something...">
+                    <button><i class="icon-magnifier"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="navigation__content"></div>
+    </div>
+{% endblock search_content %}
+
+{% block search_contentt %}
+
+            
+                <div class="header__center">
+                    <form class="ps-form--quick-search" method="post">
+                        {% csrf_token %}
+                        <div class="form-group--icon"><i class="icon-chevron-down"></i>
+                            <select name="categories" class="form-control">
+                                <option value="ALL" selected="selected">ALL</option>
+                                <option class="level-0" value="BEDROOM">BEDROOM</option>
+                                <option class="level-0" value="KITCHEN & DINNING">KITCHEN & DINNING</option>
+                                <option class="level-0" value="KIDDIES">KIDDIES</option>
+                                <option class="level-0" value="LIVING ROOM">LIVING ROOM</option>
+                                <option class="level-1" value="OFFICE">OFFICE</option>
+                                <option class="level-1" value="ACCESSORIES">ACCESSORIES</option>
+                            </select>
+                        </div>
+                        <input name="query" class="form-control" type="text" placeholder="I'm shopping for...">
+                        <button style="background-color: #5a6981">Search</button>
+                    </form>
+                </div>
+
+
+
+{% endblock search_contentt %}
 
 
 {% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}}" role="alert">
+    {{ message }}
+    </div>
+    {% endfor %}
+{% endif %} 
  
 
     <div class="ps-page--simple">
@@ -12,22 +60,25 @@
                 <div class="ps-section__header">
                     <h1>Shopping Cart</h1>
                 </div>
-                <div class="ps-section__content">
+                <div class="ps-section__content" style="margin-top: -125px">
                     <div class="table-responsive">
-                        <table class="table ps-table--shopping-cart">
-                            <thead>
-                                <tr>
-                                    <th>Product(s)</th>
+                        <table class="table">
+                            <thead style="background-color: #3c3c3c">
+                                <br>
+                                <tr style="color: #fff">
+                                    <th>PRODUCT(s)</th>
                                     <th>PRICE</th>
                                     <th>QUANTITY</th>
                                     <th></th>
                                 </tr>
+                                <br>
                             </thead>
                             <tbody>
+                                <br><br>
                             	{% if product_quantitys %}
                                
                                 	{% for item in product_quantitys %}
-                                	 <tr>
+                                	<tr style="background-color: #f2f2f2;">
                                     <td>
                                         <div class="ps-product--cart">
                                             <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.product.slug %}"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
@@ -36,12 +87,16 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="price">{{ item.product.price }}</td>
-                                    <td>
-                                    	<p><strong>{{ item.quantity }}</strong></p>
+
+                                    <td class="price" style="padding-top: 25px">₦{{ item.product.price }}</td>
+                                    <td style="padding-top: 25px">
+                                    	<strong>{{ item.quantity }}</strong>
                                     </td>
-                                    <td><a href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a></td>
+                                    <td style="padding-top: 25px"><a href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a></td>
+
+
 									</tr>
+
                                     {% endfor %}
                                    
                                     {% else %}
@@ -55,6 +110,7 @@
                                 
                              </tbody>
                         </table>
+                        
                     </div>
                     <div class="ps-section__cart-actions"><a class="ps-btn" href="{% url 'all_products' %}"><i class="icon-arrow-left"></i> Back to Shop</a></div>
                 </div>
@@ -69,14 +125,14 @@
                                     <ul class="ps-block__product">
                                     	{% if product_quantitys %}
                                     		{% for item in product_quantitys %}
-                                        		<li><span class="ps-block__shops">Name: {{ item.product.name }}</span><span class="ps-block__shippings">Quanity: {{ item.quantity }}</span><span class="ps-block__shippings">Price: {{ item.product.price }}</span><span class="ps-block__shippings">Shipping Charge: {{ item.total_shipping_charge }}</span>
+                                        		<li><span class="ps-block__shops">Name: {{ item.product.name }}</span><span class="ps-block__shippings">Quanity: {{ item.quantity }}</span><span class="ps-block__shippings">Price: ₦{{ item.product.price }}</span><span class="ps-block__shippings">Shipping Charge: ₦{{ item.total_shipping_charge }}</span>
                                         		</li>
                                         	{% endfor %}
                                         {% else %}
                                         	<li>Sorry, Nothing Yet!</li>
                                         {% endif %}
                                     </ul>
-                                    <h3>Total <span>{{ total_price }}</span></h3>
+                                    <h3>Total<span> ₦{{ total_price }}</span></h3>
                                 </div>
                             </div>
                             
@@ -106,7 +162,7 @@
                     		{% for item in section_two %}
 				                <div class="ps-product">
 				                    <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
-				                        <div class="ps-product__badge">-16%</div>
+				                        <div class="ps-product__badge"><div class="ps-product__badge" style="background-color: {{ item.tag_title_color }}">{{ item.tag_title }}</div></div>
 				                        <ul class="ps-product__actions">
 				                            <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
 				                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
@@ -125,10 +181,10 @@
 				                                    <option value="2">5</option>
 				                                </select><span>01</span>
 				                            </div>
-				                            <p class="ps-product__price sale">{{ item.price }}<del>{{ item.old_price }} </del></p>
+				                            <p class="ps-product__price sale">₦{{ item.price }} <del>₦{{ item.old_price }} </del></p>
 				                        </div>
 				                        <div class="ps-product__content hover"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
-				                            <p class="ps-product__price sale">{{ item.price }}<del>{{ item.old_price }} </del></p>
+				                            <p class="ps-product__price sale">₦{{ item.price }} <del>₦{{ item.old_price }} </del></p>
 				                        </div>
 				                    </div>
 				                </div>

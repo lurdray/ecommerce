@@ -5,7 +5,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Review(models.Model):
+	name = models.CharField(max_length=150, default="none")
+	email = models.CharField(max_length=150, default="none")
 	review = models.TextField(default="none")
+	status = models.CharField(max_length=150, default="pending")
+	pub_date = models.DateTimeField(default=timezone.now)
+	
+	
 	
 	def __str__(self):
 		return self.review
@@ -20,10 +26,14 @@ class Color(models.Model):
 
 class Product(models.Model):
 	name = models.CharField(max_length=150)
+	tag_title = models.CharField(max_length=150, default="Sale")
+	tag_title_color = models.CharField(max_length=150, default="orange")
+	section = models.CharField(max_length=150, default="section_one")
 	image_1 = models.ImageField(upload_to='product/images/')
 	image_2 = models.ImageField(upload_to='product/images/')
 	image_3 = models.ImageField(upload_to='product/images/')
 	image_4 = models.ImageField(upload_to='product/images/')
+	video = models.CharField(max_length=150, default="jshsjssd7sjs")
 	#image_5 = models.ImageField(upload_to='product/images/')
 	description = models.TextField(default="none")
 	specification = models.TextField(default="none")
@@ -43,7 +53,8 @@ class Product(models.Model):
 	pub_date = models.DateTimeField(default=timezone.now)
 	
 	def save(self, *args, **kwargs):
-		self.slug = slugify(self.name)
+		var = self.name + "/" + str(self.pub_date)
+		self.slug = slugify(var)
 		super().save(*args, **kwargs)
 		
 	def get_absolute_url(self):

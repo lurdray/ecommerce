@@ -1,7 +1,29 @@
 {% extends 'main/base.html' %}
-{% load staticfiles %}
+{% load static %}
   
 
+{% block search_contentt %}
+
+            
+                <nav class="navigation" style="background-color: #f4f4f4">
+            <div class="ps-container">
+                <div class="navigation__left">
+                    <div class="menu--product-categories">
+                        <h4 style="margin: 25px">Shop Page</h4>
+                        
+                    </div>
+                </div>
+                <div class="navigation__right">
+                    <ul class="menu">
+                       <button class="ps-btn">Checkout</button>
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+
+{% endblock search_contentt %}
 
 {% block content %}
 
@@ -10,117 +32,48 @@
         <div class="ps-container">
             <div class="ps-shop-categories">
             	<br /> <br /> <br />
-                <div class="row align-content-lg-stretch">
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="img/categories/shop/1.jpg" alt=""></div>
-                            
-                            <div class="ps-block__content">
-                                <h4>BEDROOM</h4>
-                                <ul>
-                                	{% if bedroom_section  %}
-                                		{% for item in bedroom_section %}
-				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
-				                          {% endfor %}
-				                          
-				                         {% else %}
-				                         	<li>Sorry, Nothing Yet!</li>
-				                         {% endif %}
-                                </ul>
-                            </div>
+                <div class="ps-site-features">
+            <div class="ps-block__header">
+                <div class="ps-block--site-features" style="background: linear-gradient(to right,#34495e, #ED5565);">
+                    <div class="ps-block__item">
+                        <div class="ps-block__left"><i style="color: #fff" class="icon-bed"></i></div>
+                        <div class="ps-block__right"><a href="">
+                            <h4 style="color: #fff">BEDROOM</h4>
+                            <p style="color: #fff">For all oders over $99</p>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="img/categories/shop/2.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>KITCHEN & DINNING</h4>
-                                <ul>
-                                	{% if kitchen_dinning_section  %}
-                                		{% for item in kitchen_dinning_section %}
-				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
-				                          {% endfor %}
-				                          
-				                         {% else %}
-				                         	<li>Sorry, Nothing Yet!</li>
-				                         {% endif %}
-                                </ul>
-                            </div>
+                    <div class="ps-block__item">
+                        <div class="ps-block__left"><i style="color: #fff" class="icon-chair"></i></div>
+                        <div class="ps-block__right">
+                            <h4 style="color: #fff">OFFICE</h4>
+                            <p style="color: #fff">If goods have problems</p>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="img/categories/shop/3.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>LIVING ROOM</h4>
-                                <ul>
-                                	{% if living_room_section  %}
-                                		{% for item in living_room_section %}
-				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
-				                          {% endfor %}
-				                          
-				                         {% else %}
-				                         	<li>Sorry, Nothing Yet!</li>
-				                         {% endif %}
-                                </ul>
-                            </div>
+                    <div class="ps-block__item">
+                        <div class="ps-block__left"><i style="color: #fff" class="icon-fire"></i></div>
+                        <div class="ps-block__right">
+                            <h4 style="color: #fff">KITCHEN</h4>
+                            <p style="color: #fff">100% secure payment</p>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="img/categories/shop/4.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>OFFICE</h4>
-                                <ul>
-                                	{% if office_section  %}
-                                		{% for item in office_section %}
-				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
-				                          {% endfor %}
-				                          
-				                         {% else %}
-				                         	<li>Sorry, Nothing Yet!</li>
-				                         {% endif %}
-                                </ul>
-                            </div>
+                    <div class="ps-block__item">
+                        <div class="ps-block__left"><i style="color: #fff" class="icon-home"></i></div>
+                        <div class="ps-block__right">
+                            <h4 style="color: #fff">LIVING ROOM</h4>
+                            <p style="color: #fff">Dedicated support</p>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="img/categories/shop/5.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>KIDDIES</h4>
-                                <ul>
-                                	{% if kiddies_section  %}
-                                		{% for item in kiddies_section %}
-				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
-				                          {% endfor %}
-				                          
-				                         {% else %}
-				                         	<li>Sorry, Nothing Yet!</li>
-				                         {% endif %}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="img/categories/shop/6.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>ACESSORIES</h4>
-                                <ul>
-                                	{% if acessories_section  %}
-                                		{% for item in acessories_section %}
-				                            <li><a href="{% url 'product_detail' item.slug %}">{{ item.name }}</a></li>
-				                          {% endfor %}
-				                          
-				                         {% else %}
-				                         	<li>Sorry, Nothing Yet!</li>
-				                         {% endif %}
-                                </ul>
-                            </div>
+                    <div class="ps-block__item">
+                        <div class="ps-block__left"><i style="color: #fff" class="icon-baby"></i></div>
+                        <div class="ps-block__right">
+                            <h4 style="color: #fff">KIDDIES</h4>
+                            <p style="color: #fff">Support gift service</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
             </div>
             <div class="ps-layout--shop">
                 <div class="ps-layout__left">
@@ -183,7 +136,7 @@
 									  <input style="font-size: 10px;" name="min_value" type="number">
 									</label>
 									<div class="slider" style="height: 2px; width: 200px;">
-									  <button class="minPrice"
+									  <button class="minPrice" 
 									  role="slider"
 									  aria-valuemin="150000"
 									  aria-valuemax="450000"
@@ -281,6 +234,7 @@
                                 		{% for item in section_one %}
                                 <div class="ps-product">
                                     <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
+                                    	<div class="ps-product__badge"><div class="ps-product__badge" style="background-color: {{ item.tag_title_color }}">{{ item.tag_title }}</div></div>
                                         <ul class="ps-product__actions">
                                             <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
 				                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
@@ -331,7 +285,7 @@
                             
                                 <div class="ps-product">
                                     <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
-                                        <div class="ps-product__badge"></div>
+                                        <div class="ps-product__badge"><div class="ps-product__badge" style="background-color: {{ item.tag_title_color }}">{{ item.tag_title }}</div></div>
                                         <ul class="ps-product__actions">
                                             <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
 				                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
@@ -401,6 +355,7 @@
                                         <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 ">
                                             <div class="ps-product">
                                                 <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
+                                                	<div class="ps-product__badge"><div class="ps-product__badge" style="background-color: {{ item.tag_title_color }}">{{ item.tag_title }}</div></div>
                                                     <ul class="ps-product__actions">
                                                         <li><a href="{% url 'add_product_to_cart' item.slug %}" data-toggle="tooltip" data-placement="top" title="Add to cart"><i class="icon-bag2"></i></a></li>
 										                <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{ item.slug }}"><i class="icon-eye"></i></a></li>
@@ -439,7 +394,10 @@
                                 {% if section_three %}
                                     			{% for item in section_three %}
                                     <div class="ps-product ps-product--wide">
-                                        <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
+                                        <div class="ps-product__thumbnail">
+                                        	<a href="{% url 'product_detail' item.slug %}">
+                                        		<img src="{{ item.image_1.url }}" alt="">
+                                        	</a>
                                         </div>
                                         <div class="ps-product__container">
                                             <div class="ps-product__content"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>

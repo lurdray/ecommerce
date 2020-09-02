@@ -1,0 +1,70 @@
+{% extends 'main/base.html' %}
+{% load static %}
+  
+
+{% block search_content %}
+	<div class="ps-panel--sidebar" id="search-sidebar">
+        <div class="ps-panel__header">
+            <form class="ps-form--search-mobile" method="post">
+            	{% csrf_token %}
+                <div class="form-group--nest">
+                    <input name="query" class="form-control" type="text" placeholder="Search something...">
+                    <button><i class="icon-magnifier"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="navigation__content"></div>
+    </div>
+{% endblock search_content %}
+
+
+{% block search_contentt %}
+
+			
+                <div class="header__center">
+                    <form class="ps-form--quick-search" method="post">
+                    	{% csrf_token %}
+                        <div class="form-group--icon"><i class="icon-chevron-down"></i>
+                            <select name="categories" class="form-control">
+                                <option value="ALL" selected="selected">ALL</option>
+                                <option class="level-0" value="BEDROOM">BEDROOM</option>
+                                <option class="level-0" value="KITCHEN & DINNING">KITCHEN & DINNING</option>
+                                <option class="level-0" value="KIDDIES">KIDDIES</option>
+                                <option class="level-0" value="LIVING ROOM">LIVING ROOM</option>
+                                <option class="level-1" value="OFFICE">OFFICE</option>
+                                <option class="level-1" value="ACCESSORIES">ACCESSORIES</option>
+                            </select>
+                        </div>
+                        <input name="query" class="form-control" type="text" placeholder="I'm shopping for...">
+                        <button style="background-color: #5a6981">Search</button>
+                    </form>
+                </div>
+
+
+
+{% endblock search_contentt %}
+
+
+
+
+    {% block search_contenttt %}
+<div class="ps-search--mobile">
+            <form class="ps-form--search-mobile" method="post">
+            	{% csrf_token %}
+                <div class="form-group--nest">
+                    <input name="query" class="form-control" type="text" placeholder="Search something...">
+                    <button><i class="icon-magnifier"></i></button>
+                </div>
+            </form>
+        </div>
+        
+   {% endblock search_contenttt %} 
+       
+
+
+{% block content %}
+
+
+
+
+{% endblock %}
