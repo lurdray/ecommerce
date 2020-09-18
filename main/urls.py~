@@ -16,6 +16,12 @@ urlpatterns = [
 	path("checkout-confirm-order/<int:order_id>/", views.ConfirmOrderView, name="confirm_order"),
 	
 	path("faqs/", views.FaqsView, name="faqs"),
+	path("privacy/", views.PrivacyView, name="privacy"),
+	path("terms-and-condition/", views.TermsConditionView, name="termscondition"),
+	path("shipping/", views.ShippingView, name="shipping"),
+	path("affiliate/", views.AffiliateView, name="affiliate"),
+	path("career/", views.CareerView, name="career"),
+	path("contact/", views.ContactView, name="contact"),
 	
 	path("register-or-login/", views.RegisterLoginView, name="register_login"),
 	

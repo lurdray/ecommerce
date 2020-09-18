@@ -13,4 +13,13 @@ urlpatterns = [
 	path("dashboard-all-products/", views.DashboardAllProductsView, name="dashboard_all_products"),
 	path("dashboard-all-reviews/", views.DashboardAllReviewsView, name="dashboard_all_reviews"),
 	path("dashboard-logout/", views.DashboardLogoutView, name="dashboard_logout"),
+
+	########polls shit
+	path('add-poll/', views.AddPollView, name="add_poll"),
+	path('edit-poll/', views.EditPollView, name="edit_detail"),
+	path('delete-poll/', views.DeletePollView, name="delete_poll"),
+	path('all-poll/', views.AllPollView, name="all_poll"),
+	path('poll-detail/', views.PollDetailView, name="poll_detail"),
+	path('poll-result/', views.PollResultView, name="poll_result"),
+
 ]

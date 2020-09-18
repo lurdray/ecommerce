@@ -21,13 +21,20 @@ def ray_randomiser(length=6):
 	return ''.join((random.choice(landd) for i in range(length)))
 	
 def IndexView(request):
+	#return render(request, 'main/comming_soon.html')
 	#if request.method == 'GET' and request.GET.get('query') != None:
 	if request.method == "POST":
 		query = request.POST.get('query')
 		category = request.POST.get('category')
 		if category == None:
 			category = "ALL"
-		products = Product.objects.filter(name__icontains=query, category=str(category))
+			products = Product.objects.filter(name__icontains=query)
+
+		elif category == "ALL":
+			products = Product.objects.filter(name__icontains=query)
+
+		else:
+			products = Product.objects.filter(name__icontains=query, category=str(category))
 		
 		cart = get_object_or_404(Cart, user__pk=request.user.id)
 		product_quantitys = cart.product_quantitys.all()
@@ -75,73 +82,15 @@ def IndexView(request):
 	
 		product = Product.objects.all()
 		all_products = Product.objects.all()
-		section_onek = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
-		section_twok = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
-		section_threek = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
-		section_fourk = Product.objects.filter(section="section_four").order_by("-pub_date")[:10]
-		section_fivek = Product.objects.filter(section="section_five").order_by("-pub_date")[:10]
-		
-		if section_onek:
-			try:
-				section_one = set()
-				for i in range(section_onek.count()):
-					section_one.add(random.choice(section_onek))
-			except:
-				pass
-		else:
-			section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
-				
-		if section_twok:
-			try:
-				section_two = set()
-				for i in range(section_twok.count()):
-					section_two.add(random.choice(section_twok))
-			except:
-				pass
-		else:
-			section_two = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
-			
-		if section_threek:
-			try:
-				section_three = set()
-				for i in range(section_threek.count()):
-					section_three.add(random.choice(section_threek))
-			except:
-				pass
-		else:
-			section_three = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
-			
-			
-		if section_fourk:
-			try:
-				section_four = set()
-				for i in range(section_fourk.count()):
-					section_one.add(random.choice(section_onek))
-			except:
-				pass
-		else:
-			section_four = Product.objects.filter(section="section_four").order_by("-pub_date")[:10]
-			
-		if section_fivek:
-			try:
-				section_five = set()
-				for i in range(section_fivek.count()):
-					section_five.add(random.choice(section_fivek))
-			except:
-				pass
-		else:
-			section_five = Product.objects.filter(section="section_ofive").order_by("-pub_date")[:10]
-
-			
-		bedrooms = Product.objects.filter(category="BEDROOM")[:10]
-		kitchens = Product.objects.filter(category="KITCHEN & DINNING")[:10]
-		living_rooms = Product.objects.filter(category="LIVING ROOM")[:10]
-		offices = Product.objects.filter(category="OFFICE")[:10]
-		kiddies = Product.objects.filter(category="KIDDIES")[:10]
-		acessories = Product.objects.filter(category="ACESSORIES")[:10]
+		section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
+		section_two = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
+		section_three = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
+		section_four = Product.objects.filter(section="section_four").order_by("-pub_date")[:10]
+		section_five = Product.objects.filter(section="section_five").order_by("-pub_date")[:10]
 	
-		context = {"bedrooms": bedrooms, "kitchens": kitchens, "living_rooms": living_rooms, "offices": offices, "kiddies": kiddies, "acessories": acessories,  "total_price": total_price, "product_quantitys": product_quantitys, "product": product, "all_products": all_products, "section_one": section_one, "section_two": section_two, "section_three": section_three, "section_four": section_four, "section_five": section_five}
-		return render(request, 'main/index.html', context)
+		#return HttpResponse(section_four)
+		context = {"total_price": total_price, "product_quantitys": product_quantitys, "product": product, "all_products": all_products, "section_one": section_one, "section_two": section_two, "section_three": section_three, "section_four": section_four, "section_five": section_five}
+		return render(request, 'main/index_new.html', context)
 	
 	
 def CategoryView(request, category):
@@ -150,9 +99,11 @@ def CategoryView(request, category):
 	try:
 		product = products[0]
 		category = product.category
+		category = "Fratishop"
+		page_title = "%s Category" % (category)
 	except:
 		category = "All"
-	page_title = "%s Category" % (category)
+		page_title = "%s Category" % (category)
 	
 	if request.user.is_active:
 		user = request.user
@@ -221,11 +172,6 @@ def ShopView(request):
 			rate_match_products = Product.objects.filter(rating=int(rating))
 			for eachitem in rate_match_products:
 				filtered_products.add(eachitem)
-		#	product = get_object_or_404(Product, rating=rating)
-		#	if product:
-				#filtered_products.add(product)
-			#else:
-				#pass
 				
 		cart = get_object_or_404(Cart, user__pk=request.user.id)
 		product_quantitys = cart.product_quantitys.all()
@@ -241,46 +187,10 @@ def ShopView(request):
 		
 	else:
 	
-		bedroom_section = products = Product.objects.filter(category="BEDROOM")
-		kitchen_dinning_section = Product.objects.filter(category="KITCHEN & DINNING")
-		living_room_section = Product.objects.filter(category="LIVING ROOM")
-		office_section = Product.objects.filter(category="OFFICE")
-		kiddies_section = Product.objects.filter(category="KIDDIES")
-		acessories_section = Product.objects.filter(category="ACESSORIES")
 	
-		section_onek = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
-		section_twok = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
-		section_threek = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
-		
-		if section_onek:
-			try:
-				section_one = set()
-				for i in range(section_onek.count()):
-					section_one.add(random.choice(section_onek))
-			except:
-				pass
-		else:
-			section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
-				
-		if section_twok:
-			try:
-				section_two = set()
-				for i in range(section_twok.count()):
-					section_two.add(random.choice(section_twok))
-			except:
-				pass
-		else:
-			section_two = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
-			
-		if section_threek:
-			try:
-				section_three = set()
-				for i in range(section_threek.count()):
-					section_three.add(random.choice(section_threek))
-			except:
-				pass
-		else:
-			section_three = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
+		section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:10]
+		section_two = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
+		section_three = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
 
 		
 		all_products = Product.objects.all()
@@ -317,7 +227,7 @@ def ShopView(request):
 		for item in product_quantitys:
 			total_price += (item.product.price * int(str(item.quantity)))
 	
-		context = {"total_price": total_price, "product_quantitys": product_quantitys, "section_one": section_one, "section_two": section_two, "section_three": section_three, "bedroom_section": bedroom_section, "all_products": all_products, "kitchen_dinning_section": kitchen_dinning_section, "living_room_section": living_room_section, "office_section": office_section, "kiddies_section": kiddies_section, "acessories_section": acessories_section}
+		context = {"total_price": total_price, "product_quantitys": product_quantitys, "section_one": section_one, "section_two": section_two, "section_three": section_three, "all_products": all_products}
 		return render(request, 'main/shop.html', context)
 
 

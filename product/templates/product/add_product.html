@@ -70,12 +70,11 @@
 												                        <label>Category</label>
 												                        <select name="category" class="form-control">
 												                            <option value="ALL">ALL</option>
-												                            <option value="BEDROOM">BEDROOM</option>
-												                            <option value="KITCHEN & DINNING">KITCHEN & DINNING</option>
-												                            <option value="KIDDIES">KIDDIES</option>
-												                            <option value="LIVING ROOM">LIVING ROOM</option>
-												                            <option value="OFFICE">OFFICE</option>
-												                            <option value="ACCESSORIES">ACCESSORIES</option>
+												                            <option value="section_1">Section 1</option>
+												                            <option value="section_2">Section 2</option>
+												                            <option value="section_3">Section 3</option>
+												                            <option value="section_4">Section 4</option>
+												                            <option value="section_5">Section 5</option>
 												                        </select>
 												                    </div>
 												                </div>
@@ -87,13 +86,19 @@
 												                </div>
 												                <div class="col-sm-6">
 												                    <div class="form-group">
+												                        <label>Old Price</label>
+												                        <input name="old_price" class="form-control" type="number" placeholder="Product old Price.">
+												                    </div>
+												                </div>
+												                <div class="col-sm-6">
+												                    <div class="form-group">
 												                        <label>Rating</label>
 												                        <select name="rating" class="form-control">
 												                            <option value="1">1 Star</option>
 												                            <option value="2">2 Stars</option>
 												                            <option value="3">3 Stars</option>
-												                            <option value="1">4 Stars</option>
-												                            <option value="2">5 Stars</option>
+												                            <option value="4">4 Stars</option>
+												                            <option value="5">5 Stars</option>
 												                        </select>
 												                    </div>
 												                </div>
@@ -118,10 +123,10 @@
 												                <div class="col-sm-6">
 												                    <div class="form-group">
 												                        <label>Upload images<small>Note: first image becomes the banner for the product</small></label>
-												                       <input type="file" name="image_1" class="form-control" required="required" accept="image/*">
-												                       <input type="file" name="image_2" class="form-control" required="required" accept="image/*">
-												                       <input type="file" name="image_3" class="form-control" required="required" accept="image/*">
-												                       <input type="file" name="image_4" class="form-control" required="required" accept="image/*">
+												                       <input type="file" name="image_1" class="form-control" accept="image/*" required="required">
+												                       <input type="file" name="image_2" class="form-control" accept="image/*" required="required">
+												                       <input type="file" name="image_3" class="form-control" accept="image/*" required="required">
+												                       <input type="file" name="image_4" class="form-control" accept="image/*" required="required">
 												                    </div>
 												                </div>
 												                

@@ -11,5 +11,6 @@ urlpatterns = [
 	path("dashboard-order-detail/<int:order_id>/", views.DashboardOrderDetailView, name="dashboard_order_detail"),
 	path("dashboard-customer-detail/<int:customer_id>", views.DashboardCustomerDetailView, name="dashboard_customer_detail"),
 	path("dashboard-all-products/", views.DashboardAllProductsView, name="dashboard_all_products"),
+	path("dashboard-all-reviews/", views.DashboardAllReviewsView, name="dashboard_all_reviews"),
 	path("dashboard-logout/", views.DashboardLogoutView, name="dashboard_logout"),
 ]

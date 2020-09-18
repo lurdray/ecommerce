@@ -31,29 +31,29 @@
 </head>
 <body>
 <style>
-	span{cursor:pointer; }
-		.minus, .plus{
-			width:20px;
-			height:20px;
-			background:#f2f2f2;
-			border-radius:4px;
-			padding:8px 5px 8px 5px;
-			border:1px solid #ddd;
+    span{cursor:pointer; }
+        .minus, .plus{
+            width:20px;
+            height:20px;
+            background:#f2f2f2;
+            border-radius:4px;
+            padding:8px 5px 8px 5px;
+            border:1px solid #ddd;
       display: inline-block;
       vertical-align: middle;
       text-align: center;
-		}
-		input{
-			height:34px;
+        }
+        input{
+            height:34px;
       width: 100px;
       text-align: center;
       font-size: 26px;
-			border:1px solid #ddd;
-			border-radius:4px;
+            border:1px solid #ddd;
+            border-radius:4px;
       display: inline-block;
       vertical-align: middle;
-			}
-			
+            }
+            
 </style>
 
 <style>
@@ -126,42 +126,46 @@
                         <div class="menu__toggle"><i style="color:#5a6981" class="icon-menu"></i><span style="color:#5a6981"> Shop by Category</span></div>
                         <div class="menu__content">
                             <ul class="menu--dropdown">
-                                <li class="current-menu-item "><a href="{% url 'category' 'BEDROOM' %}"></i>BEDROOM</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'KITCHEN & DINNING' %}"></i>KITCHEN & DINNING</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'LIVING ROOM' %}"></i>LIVING ROOM</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'OFFICE' %}"></i>OFFICE</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'KIDDIES' %}"></i>KIDDIES</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'ACESSORIES' %}"></i>ACESSORIES</a></li>
+                                <li><a href="{% url 'category' 'section_1' %}"> Section 1</a>
+                                </li>
+                                <li><a href="{% url 'category' 'section_2' %}"> Section 2</a>
+                                </li>
+                                <li><a href="{% url 'category' 'section_3' %}"> Section 3</a>
+                                </li>
+                                <li><a href="{% url 'category' 'section_4' %}"> Section 4</a>
+                                </li>
+                                <li><a href="{% url 'category' 'section_5' %}"> Section 5</a>
+                                </li>
                             </ul>
                         </div>
                     </div><a class="ps-logo" href="{% url 'index' %}"><img src="{% static 'main/img/frati1png.png' %}" alt=""></a>
                 </div>
                 
                 {% block search_contentt %}
-			
-    			{% endblock search_contentt %}
-    			
+            
+                {% endblock search_contentt %}
+                
                 <div class="header__right" style="color: #5a6981">
                     <div class="header__actions">
-                        <div class="ps-cart--mini"><a class="header__extra" href="{% url 'cart' request.user.id %"><i style="color:#5a6981" class="icon-bag2"></i><span><i>{{ product_quantitys.count }}</i></span></a>
+                        <div class="ps-cart--mini"><a class="header__extra" href="{% url 'cart' request.user.id %}"><i style="color:#5a6981" class="icon-bag2"></i><span><i>{{ product_quantitys.count }}</i></span></a>
                             <div class="ps-cart__content">
                                 <div class="ps-cart__items">
-                                	{% if product_quantitys %}
-                                		{% for item in product_quantitys %}
-				                            <div class="ps-product--cart-mobile">
-				                                <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.product.slug %}"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
-				                                <div class="ps-product__content"><a class="ps-product__remove" href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a><a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a><br />
-				                                    <span><strong>Quantity: </strong>{{ item.quantity }}</span><br />
-				                                    <pspan><strong>Price: ₦</strong>{{ item.product.price }}</span><br />
-				                                    <span><strong>Shipping Charge: ₦</strong>{{ item.total_shipping_charge }}</span><br /><br />
-				                                </div>
-				                            </div>
-				                          {% endfor %}
-				                         {% else %}
-				                         	<div class="ps-product--cart-mobile">
-				                         		<p>No product in your cart, yet!</p>
-				                         	</div>
-				                         {% endif %}
+                                    {% if product_quantitys %}
+                                        {% for item in product_quantitys %}
+                                            <div class="ps-product--cart-mobile">
+                                                <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.product.slug %}"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
+                                                <div class="ps-product__content"><a class="ps-product__remove" href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a><a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a><br />
+                                                    <span><strong>Quantity: </strong>{{ item.quantity }}</span><br />
+                                                    <pspan><strong>Price: ₦</strong>{{ item.product.price }}</span><br />
+                                                    <span><strong>Shipping Charge: ₦</strong>{{ item.total_shipping_charge }}</span><br /><br />
+                                                </div>
+                                            </div>
+                                          {% endfor %}
+                                         {% else %}
+                                            <div class="ps-product--cart-mobile">
+                                                <p>No product in your cart, yet!</p>
+                                            </div>
+                                    {% endif %}
                                 </div>
                                 <div class="ps-cart__footer">
                                     <h3>Total: <strong>₦{{ total_price }}</strong></h3>
@@ -189,12 +193,16 @@
                         <div style="color:#fff" class="menu__toggle"><i style="color:#fff" class="icon-menu"></i><span style=""> Shop by Category</span></div>
                         <div class="menu__content">
                             <ul class="menu--dropdown"> 
-                                <li class="current-menu-item "><a href="{% url 'category' 'BEDROOM' %}">BEDROOM</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'KITCHEN & DINNING' %}"></i>KITCHEN & DINNING</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'LIVING ROOM' %}"></i>LIVING ROOM</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'OFFICE' %}"></i>OFFICE</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'KIDDIES' %}"></i>KIDDIES</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'ACESSORIES' %}">ACESSORIES</a></li>
+                                <li><a href="{% url 'category' 'section_1' %}"> Section 1</a>
+                                </li>
+                                <li><a href="{% url 'category' 'section_2' %}"> Section 2</a>
+                                </li>
+                                <li><a href="{% url 'category' 'section_3' %}"> Section 3</a>
+                                </li>
+                                <li><a href="{% url 'category' 'section_4' %}"> Section 4</a>
+                                </li>
+                                <li><a href="{% url 'category' 'section_5' %}"> Section 5</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -218,11 +226,12 @@
     
     
     <header class="header header--mobile" data-sticky="true">
-        <div class="header__top" style="background-color: #34495e">
-           
-            <div class="header__left, text-center">
+        <div style="background-color: #34495e">
+            <br />
+            <div class="text-center">
                 <p style="color: #fff;">Welcome to Fratishop Online Shopping Store !</p>
             </div>
+            </br />
         </div>
         <div class="navigation--mobile">
             <div class="navigation__left"><a class="ps-logo" href="{% url 'index' %}"><img src="{% static 'main/img/frati1png.png' %}" alt=""></a></div>
@@ -230,26 +239,26 @@
             <div class="navigation__right">
 
                 <div class="header__actions">
-                    <div class="ps-cart--mini"><a class="header__extra" href="{% url 'cart' request.user.id %"><i class="icon-bag2"></i><span><i>{{ product_quantitys.count }}</i></span></a>
+                    <div class="ps-cart--mini"><a class="header__extra" href="{% url 'cart' request.user.id %}"><i class="icon-bag2"></i><span><i>{{ product_quantitys.count }}</i></span></a>
                         <div class="ps-cart__content">
                             <div class="ps-cart__items">
                                 {% if product_quantitys %}
-                                		{% for item in product_quantitys %}
-				                            <div class="ps-product--cart-mobile">
-				                                <div class="ps-product__thumbnail"><a href="#"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
-				                                <div class="ps-product__content"><a class="ps-product__remove" href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a>
-				                                <a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a><br />
-				                                    <span><strong>Quantity: </strong>{{ item.quantity }}</span><br />
-				                                    <pspan><strong>Price: ₦</strong>{{ item.product.price }}</span><br />
-				                                    <span><strong>Shipping Charge: ₦</strong>{{ item.total_shipping_charge }}</span><br /><br />
-				                                </div>
-				                            </div>
-				                          {% endfor %}
-				                         {% else %}
-				                         	<div class="ps-product--cart-mobile">
-				                         		<p>No product in your cart, yet!</p>
-				                         	</div>
-				                         {% endif %}
+                                        {% for item in product_quantitys %}
+                                            <div class="ps-product--cart-mobile">
+                                                <div class="ps-product__thumbnail"><a href="#"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
+                                                <div class="ps-product__content"><a class="ps-product__remove" href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a>
+                                                <a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a><br />
+                                                    <span><strong>Quantity: </strong>{{ item.quantity }}</span><br />
+                                                    <pspan><strong>Price: ₦</strong>{{ item.product.price }}</span><br />
+                                                    <span><strong>Shipping Charge: ₦</strong>{{ item.total_shipping_charge }}</span><br /><br />
+                                                </div>
+                                            </div>
+                                          {% endfor %}
+                                         {% else %}
+                                            <div class="ps-product--cart-mobile">
+                                                <p>No product in your cart, yet!</p>
+                                            </div>
+                                         {% endif %}
                                 </div>
                                 <div class="ps-cart__footer">
                                     <h3>Total: <strong>₦{{ total_price }}</strong></h3>
@@ -262,9 +271,9 @@
         </div>
         
         {% block search_contenttt %}
-			
-    	{% endblock search_contenttt %}
-    			
+            
+        {% endblock search_contenttt %}
+                
         
         {% if messages %}
     {% for message in messages %}
@@ -285,23 +294,23 @@
         <div class="navigation__content">
             <div class="ps-cart--mobile">
                 <div class="ps-cart__content">
-                	{% if product_quantitys %}
+                    {% if product_quantitys %}
                            {% for item in product_quantitys %}
                     <div class="ps-product--cart-mobile">
                         <div class="ps-product__thumbnail"><a href="#"><img src="{{ item.product.image_1.url }}" alt=""></a></div>
                         <div class="ps-product__content"><a class="ps-product__remove" href="{% url 'remove_product_cart' item.product.slug %}"><i class="icon-cross"></i></a>
                         <a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a><br />
-				        <span><strong>Quantity: </strong>{{ item.quantity }}</span><br />
-				        <pspan><strong>Price: ₦</strong>{{ item.product.price }}</span><br />
-				      	<span><strong>Shipping Charge: ₦</strong>{{ item.total_shipping_charge }}</span><br /><br />
+                        <span><strong>Quantity: </strong>{{ item.quantity }}</span><br />
+                        <pspan><strong>Price: ₦</strong>{{ item.product.price }}</span><br />
+                        <span><strong>Shipping Charge: ₦</strong>{{ item.total_shipping_charge }}</span><br /><br />
                         </div>
                     </div>
                    {% endfor %}
                    {% else %}
-                   		<div class="ps-product--cart-mobile">
-                   			<p>Sorry, Nothing Yet!</p>
-                   		</div>
-                   	{% endif %}
+                        <div class="ps-product--cart-mobile">
+                            <p>Sorry, Nothing Yet!</p>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="ps-cart__footer">
                     <h3>Total: ₦<strong>{{ total_price }}</strong></h3>
@@ -316,13 +325,16 @@
         </div>
         <div class="ps-panel__content">
             <ul class="menu--mobile">
-                <li class="current-menu-item "><a href="{% url 'category' 'BEDROOM' %}">BEDROOM</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'KITCHEN & DINNING' %}">KITCHEN & DINNING</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'LIVING ROOM' %}">LIVING ROOM</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'OFFICE' %}">OFFICE</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'KIDDIES' %}">KIDDIES</a></li>
-                                <li class="current-menu-item "><a href="{% url 'category' 'ACESSORIES' %}">ACESSORIES</a></li>
-                  
+                <li><a href="{% url 'category' 'section_1' %}"> Section 1</a>
+                </li>
+                <li><a href="{% url 'category' 'section_2' %}"> Section 2</a>
+                </li>
+                <li><a href="{% url 'category' 'section_3' %}"> Section 3</a>
+                </li>
+                <li><a href="{% url 'category' 'section_4' %}"> Section 4</a>
+                </li>
+                <li><a href="{% url 'category' 'section_5' %}"> Section 5</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -335,7 +347,7 @@
     
     
     {% block search_content %}
-			
+            
     {% endblock search_content %}
     
     
@@ -360,9 +372,9 @@
         </div>
     </div>
     
-  			{% block content %}
-			
-        	{% endblock content %}
+            {% block content %}
+            
+            {% endblock content %}
 
 
 
@@ -464,22 +476,22 @@
     <script type="text/javascript" src="{% static 'main/plugins/deque-patterns.min.js' %}"></script>
     
        <script>
-   	$(document).ready(function() {
-			$('.minus').click(function () {
-				var $input = $(this).parent().find('input');
-				var count = parseInt($input.val()) - 1;
-				count = count < 1 ? 1 : count;
-				$input.val(count);
-				$input.change();
-				return false;
-			});
-			$('.plus').click(function () {
-				var $input = $(this).parent().find('input');
-				$input.val(parseInt($input.val()) + 1);
-				$input.change();
-				return false;
-			});
-		});
+    $(document).ready(function() {
+            $('.minus').click(function () {
+                var $input = $(this).parent().find('input');
+                var count = parseInt($input.val()) - 1;
+                count = count < 1 ? 1 : count;
+                $input.val(count);
+                $input.change();
+                return false;
+            });
+            $('.plus').click(function () {
+                var $input = $(this).parent().find('input');
+                $input.val(parseInt($input.val()) + 1);
+                $input.change();
+                return false;
+            });
+        });
    
    </script>
    

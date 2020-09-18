@@ -52,6 +52,86 @@ def DashboardLogoutView(request):
 	logout(request)
 	return HttpResponseRedirect(reverse("index"))
 	
+
+
+
+##########polls shit
+def AddPollView(request):
+	if request.method == "POST":
+		context = {}
+		return render(request, 'admin_app/all_poll.html', context)
+		
+
+	else:
+		context ={}
+		return render(request, 'admin_app/add_poll.html', context)
+		
+
 	
+
+
+def EditPollView(request):
+	if request.method == "POST":
+		context = {}
+		return render(request, 'admin_app/edit_poll.html', context)
+		
+
+	else:
+		context ={}
+		return render(request, 'admin_app/edit_poll.html', context)
+
+
+
+def DeletePollView(request):
+	if request.method == "POST":
+		pass
+		
+
+	else:
+		pass
+
+
+
+def AllPollView(request):
+	if request.method == "POST":
+		context = {}
+		return render(request, 'admin_app/all_poll.html', context)
+		
+
+	else:
+		context ={}
+		return render(request, 'admin_app/all_poll.html', context)
+		
+
+
+
+
+
+def PollDetailView(request):
+	if request.method == "POST":
+		context = {}
+		return render(request, 'admin_app/poll_detail.html', context)
+		
+
+	else:
+		context ={}
+		return render(request, 'admin_app/poll_detail.html', context)
+
+
+
+		
+
+def PollResultView(request):
+	if request.method == "POST":
+		context = {}
+		return render(request, 'admin_app/poll_result.html', context)
+		
+
+	else:
+		context ={}
+		return render(request, 'admin_app/poll_result.html', context)
+
+	
+
 	
 

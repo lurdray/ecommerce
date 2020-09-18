@@ -29,10 +29,10 @@ class Product(models.Model):
 	tag_title = models.CharField(max_length=150, default="Sale")
 	tag_title_color = models.CharField(max_length=150, default="orange")
 	section = models.CharField(max_length=150, default="section_one")
-	image_1 = models.ImageField(upload_to='product/images/')
-	image_2 = models.ImageField(upload_to='product/images/')
-	image_3 = models.ImageField(upload_to='product/images/')
-	image_4 = models.ImageField(upload_to='product/images/')
+	image_1 = models.ImageField(upload_to='product/images/', blank=True)
+	image_2 = models.ImageField(upload_to='product/images/', blank=True)
+	image_3 = models.ImageField(upload_to='product/images/', blank=True)
+	image_4 = models.ImageField(upload_to='product/images/', blank=True)
 	video = models.CharField(max_length=150, default="jshsjssd7sjs")
 	#image_5 = models.ImageField(upload_to='product/images/')
 	description = models.TextField(default="none")
@@ -53,7 +53,7 @@ class Product(models.Model):
 	pub_date = models.DateTimeField(default=timezone.now)
 	
 	def save(self, *args, **kwargs):
-		var = self.name + "/" + str(self.pub_date)
+		var = self.name +"-" + str(self.pub_date)
 		self.slug = slugify(var)
 		super().save(*args, **kwargs)
 		

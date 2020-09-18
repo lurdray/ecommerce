@@ -24,9 +24,12 @@ def AddProductCartView(request, slug):
 	
 	#code for checking if the customer orders more than the available quantity
 	if product.quantity < 1:
-		return HttpResponse("Sorry, There are not enough amout of this product.")
+		messages.success(request, "Sorry, There are not enough amout of this product.")
+		#return HttpResponse("Sorry, There are not enough amout of this product.")
 	
 	else:
+		product.quantity -= 1
+		product.save()
 		distance = GetDistance()
 		total_shipping_charge = product.shipping_charge * distance
 
@@ -38,27 +41,7 @@ def AddProductCartView(request, slug):
 		messages.success(request, "Product Successfully Added to Cart")
 	
 		return HttpResponseRedirect(reverse("category", args=(product.category,)))
-	#pass
-	#return HttpResponse(slug)
-	#if request.user.is_active:
-	#	if request.method == "POST":
-	#		quantity = request.POST.get("quantity")
-	#		return HttpResponse(quantity)
-	#		cart = get_object_or_404(Cart, user__pk=request.user.id)
-	#		product = get_object_or_404(Product, slug=slug)
-	#		pub_date = timezone.now()
-	#		cp = CartProductConnector(cart=cart, product=product, pub_date=pub_date)
-	#		cp.save()
-		
-		
-	#	quantity = request.POST.get("quantity")
-	#	return HttpResponse(quantity)
-	
-	#	return HttpResponseRedirect(reverse("all_products"))
-		
-	#else:
-	#	return HttpResponse("session expired!")
-	
+
 	
 def CartView(request, user_id):
 	if request.method == "POST":

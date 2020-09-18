@@ -69,15 +69,15 @@
             <div class="ps-container">
                 <div class="ps-section__left">
                     <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
-                        <div class="ps-banner"><a href="#"><img src="{% static 'main/img/slider/home-1/frati13.gif' %}" alt=""></a></div>
-                        <div class="ps-banner"><a href="#"><img src="{% static 'main/img/slider/home-1/frati11.gif' %}" alt=""></a></div>
-                        <div class="ps-banner"><a href="#"><img src="{% static 'main/img/slider/home-1/frati12.gif' %}" alt=""></a></div>
+                        <div class="ps-banner"><a href="#"><img src="{% static 'main/img/slider/home-1/frati13.gif' %}" alt="" style="width: 1oo%; height: auto;"></a></div>
+                        <div class="ps-banner"><a href="#"><img src="{% static 'main/img/slider/home-1/frati11.gif' %}" alt="" style="width: 1oo%; height: auto;"></a></div>
+                        <div class="ps-banner"><a href="#"><img src="{% static 'main/img/slider/home-1/frati12.gif' %}" alt="" style="width: 1oo%; height: auto;"></a></div>
                     </div>
                 </div>
                 <div class="ps-section__right"><a class="ps-collection" href="#"><img src="{% static 'main/img/slider/home-1/frati10.gif' %}" alt=""></a><a class="ps-collection" href="#"><img src="{% static 'main/img/slider/home-1/frati9.gif' %}" alt=""></a></div>
             </div>
         </div>
-        <div class="ps-site-features">
+        <div class="ps-site-features ps-section__right">
             <div class="ps-container">
                 <div class="ps-block--site-features" style="background: linear-gradient(to right,#34495e, #ED5565);">
                     <div class="ps-block__item">

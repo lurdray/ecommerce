@@ -1,4 +1,4 @@
-#!/home/raytech/gitdemo/ecommerce/venv/bin/python3
+#!/home/raytech/Desktop/RayGit/ecommerce/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

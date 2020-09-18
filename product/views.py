@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from main.views import ray_randomiser 
 
 
 # Create your views here.
@@ -23,16 +24,13 @@ def AddProductView(request):
 		quantity = request.POST.get("quantity")
 		threshold = request.POST.get("threshold")
 		price = request.POST.get("price")
+		old_price = request.POST.get("old_price")
 		rating = request.POST.get("rating")
 		colors = request.POST.getlist('colors')
 		shipping_charge = request.POST.get("shipping_charge")
 		dimension = request.POST.get("dimension")
 		delivery_info = request.POST.get("delivery_info")
 		
-		image_1 = request.FILES["image_1"]
-		image_2 = request.FILES["image_2"]
-		image_3 = request.FILES["image_3"]
-		image_4 = request.FILES["image_4"]
 		
 		video_link = request.POST.get("video")
 		
@@ -41,8 +39,29 @@ def AddProductView(request):
 
 		pub_date = timezone.now()
 
+		product = Product.objects.create(name=name, tag_title=tag_title, tag_title_color=tag_title_color, section=section, description=description, specification=specification, category=category, quantity=quantity, threshold=threshold, price=price, old_price=old_price, rating=rating, shipping_charge=shipping_charge, dimension=dimension, delivery_info=delivery_info, slug=name, video=video, pub_date=pub_date)
+		try:
+			if request.FILES["image_1"]:
+				image_1 = request.FILES["image_1"]
+				product.image_1 = image_1
+			if request.FILES["image_2"]:
+				image_2 = request.FILES["image_2"]
+				product.image_2 = image_2
+			if request.FILES["image_3"]:
+				image_3 = request.FILES["image_3"]
+				product.image_3 = image_3
+			if request.FILES["image_4"]:
+				image_4 = request.FILES["image_4"]
+				product.image_4 = image_4
+			if request.FILES["image_5"]:
+				image_5 = request.FILES["image_5"]
+				product.image_5 = image_5
 
-		product = Product.objects.create(name=name, tag_title=tag_title, tag_title_color=tag_title_color, section=section, image_1=image_1, image_2=image_2, image_3=image_3, image_4=image_4, description=description, specification=specification, category=category, quantity=quantity, threshold=threshold, price=price, rating=rating, shipping_charge=shipping_charge, dimension=dimension, delivery_info=delivery_info, slug=name, video=video, pub_date=pub_date)
+			else:
+				pass
+
+		except:
+			pass
 		product.save()
 		
 		for item in colors:
@@ -89,7 +108,9 @@ def ProductDetailView(request, slug):
 				messages.success(request, "Sorry, There are not enough amout of this product.")
 				return HttpResponseRedirect(reverse("all_products"))
 	
-			else:	
+			else:
+				product.quantity -= quantity_k
+				product.save()
 				distance = GetDistance()
 				total_shipping_charge = (product.shipping_charge * distance)
 				product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity, total_shipping_charge=total_shipping_charge)
@@ -119,6 +140,7 @@ def ProductDetailView(request, slug):
 			section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:1]
 			section_two = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
 			section_three = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
+			related_products = Product.objects.filter(section=product.section).order_by("-pub_date")[:10]
 			all_products = Product.objects.all()
 			
 			context = {"total_price": total_price, "product_quantitys": product_quantitys, "product": product, "section_one": section_one, "section_two": section_two, "section_three": section_three, "all_products": all_products}
@@ -166,8 +188,10 @@ def ProductDetailView(request, slug):
 		section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:2]
 		section_two = Product.objects.filter(section="section_two").order_by("-pub_date")[:10]
 		section_three = Product.objects.filter(section="section_three").order_by("-pub_date")[:10]
+		related_products = Product.objects.filter(section=product.section).order_by("-pub_date")[:10]
+
 		all_products = Product.objects.all()
-		context = {"total_price": total_price, "product_quantitys": product_quantitys, "product": product, "section_one": section_one, "section_two": section_two, "section_three": section_three, "all_products": all_products}
+		context = {"related_products": related_products, "total_price": total_price, "product_quantitys": product_quantitys, "product": product, "section_one": section_one, "section_two": section_two, "section_three": section_three, "all_products": all_products}
 		
 		return render(request, 'product/product_detail.html', context)
 	

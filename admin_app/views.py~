@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from product.models import Product
+from product.models import Product, Review
 from order.models import Order
 from customer.models import Customer
 from django.utils import timezone
@@ -13,7 +13,8 @@ def DashboardView(request):
 	products = Product.objects.order_by("-pub_date")[:10]
 	orders = Order.objects.order_by("-pub_date")[:10]
 	customers = Customer.objects.order_by("-pub_date")[:10]
-	context = {"products": products, "customers": customers, "orders": orders}
+	reviews = Review.objects.order_by("-pub_date")[:10]
+	context = {"products": products, "customers": customers, "orders": orders, "reviews": reviews}
 	return render(request, 'admin_app/index.html', context)
 	
 
@@ -38,6 +39,13 @@ def DashboardAllProductsView(request):
 	products = Product.objects.order_by("-pub_date")
 	context = {"products": products}
 	return render(request, 'admin_app/all_products.html', context)
+	
+	
+	
+def DashboardAllReviewsView(request):
+	reviews = Review.objects.order_by("-pub_date")
+	context = {"reviews": reviews}
+	return render(request, 'admin_app/all_review.html', context)
 	
 	
 def DashboardLogoutView(request):

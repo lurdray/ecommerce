@@ -18,6 +18,8 @@ urlpatterns = [
      path('', include("customer.urls")),
     path('', include("order.urls")),
     path('', include("cart.urls")),
+    path('', include("poll.urls")),
+
 
 	path("sitemap.xml", sitemap, {"sitemaps": sitemaps}),
     path('admin/', admin.site.urls),

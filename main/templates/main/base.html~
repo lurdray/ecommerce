@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/market-place-1.css' %}"> 
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/deque-patterns.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/autopart.css' %}"> 
 
 </head>
 <body>

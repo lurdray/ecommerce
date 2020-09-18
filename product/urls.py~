@@ -10,5 +10,4 @@ urlpatterns = [
 	path("product-detail/<slug:slug>/", views.ProductDetailView, name="product_detail"),
 	path("edit-product/<slug:slug>/", views.EditProductView, name="edit_product"),
 	path("delete-product/<slug:slug>/", views.DeleteProductView, name="delete_product"),
-	
 ]

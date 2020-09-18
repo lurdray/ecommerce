@@ -5,7 +5,7 @@
 {% block search_contentt %}
 
             
-                <nav class="navigation" style="background-color: #f4f4f4">
+        <nav class="navigation" style="background-color: #f4f4f4">
             <div class="ps-container">
                 <div class="navigation__left">
                     <div class="menu--product-categories">
@@ -58,7 +58,7 @@
                                     <p>Category:<a href="#">{{ product.category }}</a></p>
 
                                 </div>
-                                <h4 class="ps-product__price">{{ product.price }}</h4>
+                                <h4 class="ps-product__price">₦{{ product.price }}</h4>
                                 <div class="ps-product__desc">
                                     <p>From: <a href="#"><strong>{{ product.category }}</strong> Category</a></p>
                                     <ul class="ps-list--dot">
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="ps-product__specification">
                                     <p><strong>product id</strong>{{ product.id }}</p>
-                                    <p class="categories"><strong>Only {{ product.quantity }}</strong> are left, Hurray up!</p>
+                                    <p class="categories"><strong>Only {{ product.quantity }}</strong> left, Hurray up!</p>
                                     
                                 </div>
                                 <div class="ps-product__sharing">
@@ -201,7 +201,7 @@
                                         <h4>Category:</h4>
                                         <p>{{ product.category }}</p><br />
                                         <h4>Price:</h4>
-                                        <p>{{ product.price }}</p><br />
+                                        <p>₦{{ product.price }}</p><br />
                                         <h4>Rating:</h4>
                                         <p>{{ product.rating }}</p><br />  
                                   </div>
@@ -248,10 +248,10 @@
 				                                        <option value="2">5</option>
 				                                    </select><span>01</span>
 				                                </div>
-				                                <p class="ps-product__price sale">{{ item.price }} <del>{{ item.old_price }} </del></p>
+				                                <p class="ps-product__price sale">₦{{ item.price }} <del>₦{{ item.old_price }} </del></p>
 				                            </div>
 				                            <div class="ps-product__content hover"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
-				                                <p class="ps-product__price sale">{{ item.price }} <del>{{ item.old_price }} </del></p>
+				                                <p class="ps-product__price sale">₦{{ item.price }} <del>₦{{ item.old_price }} </del></p>
 				                            </div>
 				                        </div>
 				                    </div>
@@ -297,10 +297,10 @@
 				                                        <option value="2">5</option>
 				                                    </select><span>01</span>
 				                                </div>
-				                                <p class="ps-product__price">{{ item.price }}</p>
+				                                <p class="ps-product__price">₦{{ item.price }}</p>
 				                            </div>
 				                            <div class="ps-product__content hover"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
-				                                <p class="ps-product__price">{{ item.price }}</p>
+				                                <p class="ps-product__price">₦{{ item.price }}</p>
 				                            </div>
 				                        </div>
 				                    </div>
@@ -323,8 +323,8 @@
                 </div>
                 <div class="ps-section__content">
                     <div class="ps-carousel--nav owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="10000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="true" data-owl-item="6" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
-                    	{% if section_three %}
-                    		{% for item in section_three %}
+                    	{% if related_products %}
+                    		{% for item in related_products %}
 				                <div class="ps-product">
 				                    <div class="ps-product__thumbnail"><a href="{% url 'product_detail' item.slug %}"><img src="{{ item.image_1.url }}" alt=""></a>
 				                    	<div class="ps-product__badge" style="background-color: {{ item.tag_title_color }}">{{ item.tag_title }}</div>
@@ -346,10 +346,10 @@
 				                                    <option value="2">5</option>
 				                                </select><span>01</span>
 				                            </div>
-				                            <p class="ps-product__price">{{ item.price }}</p>
+				                            <p class="ps-product__price">₦{{ item.price }}</p>
 				                        </div>
 				                        <div class="ps-product__content hover"><a class="ps-product__title" href="{% url 'product_detail' item.slug %}">{{ item.name }}</a>
-				                            <p class="ps-product__price">{{ item.price }}</p>
+				                            <p class="ps-product__price">₦{{ item.price }}</p>
 				                        </div>
 				                    </div>
 				                </div>
