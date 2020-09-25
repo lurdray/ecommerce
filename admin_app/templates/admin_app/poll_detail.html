@@ -1,0 +1,68 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+  
+
+
+{% block content %}
+
+
+        <div class="container">
+
+            <div class="ps-section__content">
+                <div class="ps-block--vendor-dashboard">
+                
+                
+                		    <main class="ps-page--my-account">
+								<section class="ps-section--account">
+									<div class="container">
+										<div class="row">
+											<div class="col-lg-8">
+												<div class="ps-section__right">
+												    <form class="ps-form--account-setting" method="post" enctype="multipart/form-data">
+														{% csrf_token %}
+												        <div class="ps-form__header">
+												            <h3>Poll Detail for ({{ poll.title }})</h3>
+												        </div>
+												        <div class="ps-form__content">
+												            <div class="form-group">
+												                <label>Title</label>
+												                <input name="title" class="form-control" type="text" value="{{ poll.title }}">
+												            </div>
+												            <div class="row">
+												                <div class="col-sm-6">
+												                    <div class="form-group">
+												                        <label>Description</label>
+												                        <textarea name="description" rows="9" placeholder="Product Description." class="form-control">{{ poll.description }}</textarea>
+												                    </div>
+												                </div>
+												                <div class="col-sm-6">
+												                	<h4>Options({{ poll.options.count }}) | {{ poll.options.vote }}Votes</h4>
+												                	{% if options %}
+												                		{% for item in options %}
+												                			<small>{{ item.option }} - {{ option.vote }}Votes</small><br/><hr>
+												                		{% endfor %}
+												                		{% else %}
+												                			<h4>No Options Available, <a href="{% url 'dashboard_add_poll_option' poll.id %}">Add Some!</a></h4>
+												                	{% endif %}
+
+												                </div>
+
+												            </div>
+												        </div>
+												        <div class="form-group submit">
+												            <button class="ps-btn">Update</button>
+												        </div>
+												    </form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+							</main>
+                
+                </div>
+               </div>
+             </div>
+             
+             
+       {% endblock %}

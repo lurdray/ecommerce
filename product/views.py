@@ -134,7 +134,7 @@ def ProductDetailView(request, slug):
 			total_price = 0
 			total_quantity = 0
 			for item in product_quantitys:
-				total_price += (item.product.price * int(str(item.quantity)))
+				total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 	
 			product = Product.objects.get(slug=slug)
 			section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:1]
@@ -182,7 +182,7 @@ def ProductDetailView(request, slug):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 	
 		product = Product.objects.get(slug=slug)
 		section_one = Product.objects.filter(section="section_one").order_by("-pub_date")[:2]
@@ -244,7 +244,7 @@ def AllProductsView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys, 'products': products}
 		return render(request, 'product/all_products.html', context)
@@ -282,7 +282,7 @@ def AllProductsView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 		
 		page_title = "All Products"
 		products = Product.objects.order_by("-pub_date")

@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
 	path('all-poll/', views.AllPollView, name="all_poll"),
-	path('poll-detail/', views.PollDetailView, name="poll_detail"),
+	path('poll-detail/<int:poll_id>/', views.PollDetailView, name="poll_detail"),
 	path('poll-result/', views.PollResultView, name="poll_result"),
 
 

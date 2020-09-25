@@ -15,11 +15,12 @@ urlpatterns = [
 	path("dashboard-logout/", views.DashboardLogoutView, name="dashboard_logout"),
 
 	########polls shit
-	path('add-poll/', views.AddPollView, name="add_poll"),
-	path('edit-poll/', views.EditPollView, name="edit_detail"),
-	path('delete-poll/', views.DeletePollView, name="delete_poll"),
-	path('all-poll/', views.AllPollView, name="all_poll"),
-	path('poll-detail/', views.PollDetailView, name="poll_detail"),
-	path('poll-result/', views.PollResultView, name="poll_result"),
+	path('dashboard-add-poll/', views.AddPollView, name="dashboard_add_poll"),
+	path('dashboard-add-poll-option/<int:poll_id>/', views.AddOptionPollView, name="dashboard_add_poll_option"),
+	path('dashboard-edit-poll/', views.EditPollView, name="dashboard_edit_detail"),
+	path('dashboard-delete-poll/', views.DeletePollView, name="dashboard_delete_poll"),
+	path('dashboard-all-poll/', views.AllPollView, name="dashboard_all_poll"),
+	path('dashboard-poll-detail/<int:poll_id>/', views.PollDetailView, name="dashboard_poll_detail"),
+	path('dashboard-poll-result/', views.PollResultView, name="dashboard_poll_result"),
 
 ]

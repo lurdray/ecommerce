@@ -41,7 +41,7 @@ def IndexView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 
 		context = {"total_price": total_price, "product_quantitys": product_quantitys, 'products': products}
 		return render(request, 'product/all_products.html', context)
@@ -78,7 +78,7 @@ def IndexView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 	
 		product = Product.objects.all()
 		all_products = Product.objects.all()
@@ -135,7 +135,7 @@ def CategoryView(request, category):
 	total_price = 0
 	total_quantity = 0
 	for item in product_quantitys:
-		total_price += (item.product.price * int(str(item.quantity)))
+		total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 	
 	
 	context = {"total_price": total_price, "product_quantitys": product_quantitys, "products": products, "page_title": page_title, "all_products": all_products}
@@ -178,7 +178,7 @@ def ShopView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 				
 		page_title = "Filtered Products"
 		context = {"total_price": total_price, "product_quantitys": product_quantitys, "products": filtered_products, "page_title": page_title}
@@ -225,7 +225,7 @@ def ShopView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 	
 		context = {"total_price": total_price, "product_quantitys": product_quantitys, "section_one": section_one, "section_two": section_two, "section_three": section_three, "all_products": all_products}
 		return render(request, 'main/shop.html', context)
@@ -260,7 +260,7 @@ def CheckoutView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			#total_quantity += int(str(item.quantity))
 		
 		messages.success(request, "Dear " +full_name+ " your order was succesfully placed" )
@@ -308,7 +308,7 @@ def CheckoutView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		if total_price == 0:
 			return HttpResponseRedirect(reverse("shop"))
@@ -387,7 +387,7 @@ def FaqsView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'product/all_products.html', context)
@@ -423,7 +423,7 @@ def FaqsView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'main/faqs.html', context)
@@ -465,7 +465,7 @@ def PrivacyView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'product/all_products.html', context)
@@ -501,7 +501,7 @@ def PrivacyView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'main/privacy.html', context)
@@ -543,7 +543,7 @@ def TermsConditionView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'product/all_products.html', context)
@@ -579,7 +579,7 @@ def TermsConditionView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'main/terms_condition.html', context)
@@ -621,7 +621,7 @@ def AffiliateView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'product/all_products.html', context)
@@ -657,7 +657,7 @@ def AffiliateView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'main/affiliate.html', context)
@@ -699,7 +699,7 @@ def CareerView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'product/all_products.html', context)
@@ -735,7 +735,7 @@ def CareerView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'main/career.html', context)
@@ -779,7 +779,7 @@ def ShippingView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'product/all_products.html', context)
@@ -815,7 +815,7 @@ def ShippingView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'main/shipping.html', context)
@@ -863,7 +863,7 @@ def ContactView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"response": response, "total_price": total_price, "product_quantitys": product_quantitys}
 		
@@ -903,7 +903,7 @@ def ContactView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"response": response, "total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'main/contact.html', context)	
@@ -957,7 +957,7 @@ def AboutView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'product/all_products.html', context)
@@ -994,7 +994,7 @@ def AboutView(request):
 		total_price = 0
 		total_quantity = 0
 		for item in product_quantitys:
-			total_price += (item.product.price * int(str(item.quantity)))
+			total_price += (item.product.price * int(str(item.quantity))) + (item.total_shipping_charge * int(str(item.quantity)))
 			
 		context = {"total_price": total_price, "product_quantitys": product_quantitys}
 		return render(request, 'main/about.html', context)
